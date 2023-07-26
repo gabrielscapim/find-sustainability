@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="header-container">
     <nav>
       <NuxtLink to="/">Logo</NuxtLink>
       <ul>
@@ -19,6 +19,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .header-container {
+    border: 1px solid red;
+    font-family: 'MuseoSansRounded-300';
+  }
 </style>
