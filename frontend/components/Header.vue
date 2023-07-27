@@ -5,7 +5,7 @@
         <a href="/">Logo</a>
       </div>
       <div class="header-line-2">
-        <a class="header-option" href="/">Sobre</a>
+        <a class="header-option" href="#about">Sobre</a>
         <a class="header-option" href="/">Buscar Startup</a>
         <a class="header-option" href="/">Cadastrar Startup</a>
       </div>
@@ -43,7 +43,7 @@ export default {
   }
 
   .header-option:hover {
-    color: #6A0FB2;
+    color: #91B31E;
   }
 
   @media all and (max-width: 768px) {
