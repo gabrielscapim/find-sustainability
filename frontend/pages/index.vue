@@ -75,9 +75,11 @@ export default {
     display: flex;
   }
 
-  .main-container {
+  .main-buttons-container {
     display: flex;
-    width: 100%;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 24px;
   }
 
   .main-section-1-column-1 {

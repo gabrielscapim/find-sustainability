@@ -28,13 +28,20 @@ export default {
     padding: 12px 18px 12px 18px;
     border-radius: 4px;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
   }
 
   .button:hover {
     background-color: #1A614F;
     border: 1px solid #1A614F;
     cursor: pointer;
+  }
+
+  @media all and (max-width: 1024px) {
+    .button {
+      font-size: 14px;
+    }
   }
 
 </style>
