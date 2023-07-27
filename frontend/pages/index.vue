@@ -8,6 +8,10 @@
         <p>
           Explore nossa plataforma e descubra startups comprometidas em construir um futuro melhor para todos. Cada projeto é um elo valioso na preservação do nosso planeta.
         </p>
+        <div class="main-buttons-container">
+          <Button label="Buscar Startup" @handleClick="testFunction"/>
+          <Button label="Cadastrar Startup" @handleClick="testFunction"/>
+        </div>
       </article>
       <div class="main-section-1-column-2">
         <img
@@ -46,8 +50,18 @@
 </template>
 
 <script>
+import Button from '../components/Button.vue'
+
 export default {
-  name: ''
+  name: '',
+  components: {
+    Button,
+  },
+  methods: {
+    testFunction() {
+      console.log('clicou');
+    }
+  }
 }
 </script>
 
