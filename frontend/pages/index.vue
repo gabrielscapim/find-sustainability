@@ -9,8 +9,8 @@
           Explore nossa plataforma e descubra startups comprometidas em construir um futuro melhor para todos. Cada projeto é um elo valioso na preservação do nosso planeta.
         </p>
         <div class="main-buttons-container">
-          <Button label="Buscar Startup" @handleClick="testFunction"/>
-          <Button label="Cadastrar Startup" @handleClick="testFunction"/>
+          <Button label="Buscar Startup" @handleClick="handleAddStartup"/>
+          <Button label="Cadastrar Startup" @handleClick="handleAddStartup"/>
         </div>
       </article>
       <div class="main-section-1-column-2">
@@ -58,8 +58,12 @@ export default {
     Button,
   },
   methods: {
-    testFunction() {
-      console.log('clicou');
+    handleFindStartup() {
+      this.$router.push('add-startup');
+    },
+
+    handleAddStartup() {
+      this.$router.push('add-startup');
     }
   }
 }
