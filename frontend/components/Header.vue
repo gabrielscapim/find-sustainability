@@ -43,7 +43,7 @@ export default {
   }
 
   .header-option:hover {
-    color: #6A0FB2;
+    color: #91B31E;
   }
 
   @media all and (max-width: 768px) {
