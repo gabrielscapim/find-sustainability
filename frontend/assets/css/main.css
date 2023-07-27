@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'MuseoSansRounded-300';
+    src: url('~/static/fonts/MuseoSansRounded-300.ttf') format('truetype');
+  }
+
+body {
+    font-family: 'MuseoSansRounded-300';
+}
