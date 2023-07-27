@@ -105,6 +105,7 @@ export default {
     display: flex;
     width: 100%;
     margin-top: 36px;
+    align-items: center;
   }
 
   .main-section-2-column-1 {
@@ -134,5 +135,46 @@ export default {
   .main-section-2-column-2 p {
     width: 80%;
     line-height: 1.5;
+  }
+
+  @media all and (max-width: 1024px) {
+    .main-section-1-column-1 h1 {
+      font-size: 24px;
+    }
+
+    .main-section-1-column-1 p {
+      font-size: 16px;
+    }
+
+    .main-section-2-column-2 {
+      font-size: 16px;
+
+    }
+  }
+
+  @media all and (max-width: 768px) {
+    .main-section-1 {
+      flex-direction: column-reverse;
+    }
+
+    .main-section-2 {
+      flex-direction: column;
+    }
+
+    .main-section-1-column-1 {
+      width: 100%;
+    }
+
+    .main-section-1-column-2 {
+      width: 100%;
+    }
+
+    .main-section-2-column-1 {
+      width: 100%;
+    }
+
+    .main-section-2-column-2 {
+      width: 100%;
+    }
   }
 </style>
