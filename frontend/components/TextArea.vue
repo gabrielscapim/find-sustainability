@@ -52,6 +52,7 @@ export default {
   .textarea-container {
     display: flex;
     flex-direction: column;
+    margin-top: 24px;
     margin-bottom: 24px;
     width: 90%;
   }
