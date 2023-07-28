@@ -23,8 +23,9 @@ export default {
       type: String,
       require: true
     },
-    modelValue: {
-      type: [String, Number]
+    checked: {
+      type: Boolean,
+      default: false,
     },
     label: {
       type: String,
