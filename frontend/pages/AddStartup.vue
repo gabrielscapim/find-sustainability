@@ -22,6 +22,8 @@
         label="Conte-nos um pouco mais sobre a empresa"
         v-model="startup.description"
       />
+      <label>Selecione as ODS que a empresa contribui</label>
+      <Checkbox label="Teste"/>
       <Input
         id="input-statup-website"
         label="Link para o website"
@@ -46,13 +48,16 @@
 </template>
 
 <script>
+import Checkbox from '../components/Checkbox.vue';
 import Input from '../components/Input.vue'
 import TextArea from '../components/TextArea.vue'
+import goalsList from '../helpers/goalsList';
 
 export default {
   components: {
     Input,
     TextArea,
+    Checkbox,
   },
   data() {
     return {
@@ -62,9 +67,10 @@ export default {
         website: '',
         logo: '',
         number: '',
-      }
+      },
+      goalsList,
     }
-  }
+  },
 }
 </script>
 
@@ -76,6 +82,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 1px solid red;
   }
   .form {
     width: 80%;
@@ -83,6 +90,7 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border: 1px solid red;
   }
 
   .page-title {

@@ -64,6 +64,7 @@ export default {
   }
 
   .input:focus {
+    border: none;
     border-bottom: 1px solid black;
   }
 </style>
