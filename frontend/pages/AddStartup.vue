@@ -11,14 +11,30 @@
       class="image"
     >
     <form class="form">
-      Hello World
+      <Input
+        id="input-statup-name"
+        label="Nome"
+        placeholder="Digite o nome da sua empresa"
+        v-model="test"
+      />
     </form>
+
+    {{ test }}
   </section>
 </template>
 
 <script>
-export default {
+import Input from '../components/Input.vue'
 
+export default {
+  components: {
+    Input
+  },
+  data() {
+    return {
+      test: ''
+    }
+  }
 }
 </script>
 
@@ -35,5 +51,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
   }
 </style>
