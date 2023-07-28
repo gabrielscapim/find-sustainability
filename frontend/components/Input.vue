@@ -55,15 +55,15 @@ export default {
   }
 
   .input {
-    border: 1px solid gray;
-    border-radius: 4px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid gray;
     padding: 2px 4px 2px 4px;
     height: 28px;
     font-family: 'MuseoSansRounded-300';
   }
 
   .input:focus {
-    outline: none;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
   }
 </style>

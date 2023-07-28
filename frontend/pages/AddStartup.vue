@@ -17,6 +17,12 @@
         placeholder="Digite o nome da sua empresa"
         v-model="test"
       />
+      <Input
+        id="input-statup-website"
+        label="Link para o website"
+        placeholder="Digite o link para o website da empresa"
+        v-model="test"
+      />
     </form>
 
     {{ test }}
