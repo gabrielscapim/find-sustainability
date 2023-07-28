@@ -92,6 +92,7 @@ export default {
     justify-content: center;
     align-items: center;
   }
+  
   .form {
     width: 80%;
     display: flex;
@@ -114,5 +115,19 @@ export default {
     width: 90%;
     margin-top: 24px;
     margin-bottom: 24px;
+  }
+
+  @media all and (max-width: 768px) {
+    .form {
+      width: 100%;
+    }
+
+    .page-container {
+      margin-top: 16px;
+    }
+
+    .page-title {
+      width: 100%;
+    }
   }
 </style>
