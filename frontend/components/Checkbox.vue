@@ -4,8 +4,8 @@
       class="checkbox"
       :id="id"
       type="checkbox"
-      :value="modelValue"
-      @input="$emit('input', $event.target.value)"
+      :checked="checked"
+      @change="$emit('input', $event.target.checked)"
     />
     <label
       class="label"
