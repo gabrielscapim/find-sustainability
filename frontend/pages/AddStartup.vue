@@ -22,8 +22,17 @@
         label="Conte-nos um pouco mais sobre a empresa"
         v-model="startup.description"
       />
-      <label>Selecione as ODS que a empresa contribui</label>
-      <Checkbox label="Teste"/>
+      <label class="goals-label">
+        Selecione as ODS que a empresa contribui
+      </label>
+      <Checkbox
+        v-for="goal in startup.goalsList"
+        :key="goal.name"
+        :label="goal.name"
+        :id="goal.name"
+        v-model="goal.checked"
+        :checked="goal.checked"
+      />
       <Input
         id="input-statup-website"
         label="Link para o website"
@@ -64,11 +73,11 @@ export default {
       startup: {
         name: '',
         description: '',
+        goalsList,
         website: '',
         logo: '',
         number: '',
       },
-      goalsList,
     }
   },
 }
@@ -82,7 +91,6 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
   }
   .form {
     width: 80%;
@@ -90,7 +98,6 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid red;
   }
 
   .page-title {
@@ -101,5 +108,11 @@ export default {
 
   .page-container span {
     color: #91B31E;
+  }
+
+  .goals-label {
+    width: 90%;
+    margin-top: 24px;
+    margin-bottom: 24px;
   }
 </style>
