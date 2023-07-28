@@ -6,10 +6,10 @@
 
 <template>
   <section class="page-container">
+    <h1 class="page-title">
+      Obrigado por escolher fazer a <span>diferença!</span>
+    </h1>
     <form class="form">
-      <h1>
-        Obrigado por escolher fazer a <span>diferença!</span>
-      </h1>
       <Input
         id="input-statup-name"
         label="Nome"
@@ -42,10 +42,6 @@
         v-model="startup.number"
       />
     </form>
-    <img 
-      src="../static/images/add-startup-image-1.jpeg" alt="add-startup"
-      class="image"
-    >
   </section>
 </template>
 
@@ -77,23 +73,25 @@ export default {
     width: 100%;
     display: flex;
     margin-top: 48px;
-  }
-  .image {
-    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .form {
-    width: 50%;
+    width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
   }
 
-  .page-container h1 {
+  .page-title {
+    width: 80%;
     padding-bottom: 32px;
+    text-align: center;
   }
 
   .page-container span {
-    color: #339967;
+    color: #91B31E;
   }
 </style>
