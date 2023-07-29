@@ -2,12 +2,16 @@
   <header class="header-container">
     <nav>
       <div class="header-line-1">
-        <a href="/">Logo</a>
+        <img 
+          src="../static/images/logo.png"
+          alt="logo"
+          class="logo-image"
+        >
       </div>
       <div class="header-line-2">
-        <a class="header-option" href="#about">Sobre</a>
+        <a class="header-option" href="/#about">Sobre</a>
         <a class="header-option" href="/">Buscar Startup</a>
-        <a class="header-option" href="/">Cadastrar Startup</a>
+        <a class="header-option" href="/add-startup">Cadastrar Startup</a>
       </div>
     </nav>
   </header>
@@ -44,6 +48,10 @@ export default {
 
   .header-option:hover {
     color: #91B31E;
+  }
+
+  .logo-image {
+    width: 60px;
   }
 
   @media all and (max-width: 768px) {
