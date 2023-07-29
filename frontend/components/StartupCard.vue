@@ -2,11 +2,11 @@
   <div class="card-container">
     <img
       :src="src"
-      :alt="title"
+      :alt="name"
       class="image"
     >
     <div class="info-container">
-        <h3>{{ title }}</h3>
+        <h3>{{ name }}</h3>
         <p>{{ description }}</p>
     </div>
     <Button 
@@ -28,7 +28,7 @@ export default {
       type: String,
       required: true,
     },
-    title: {
+    name: {
       type: String,
       required: true,
     },
