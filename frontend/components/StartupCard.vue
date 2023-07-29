@@ -9,7 +9,10 @@
         <h3>{{ title }}</h3>
         <p>{{ description }}</p>
     </div>
-    <Button label="Saiba mais" />
+    <Button 
+      label="Saiba mais"
+      @handleClick="handleClick"
+    />
   </div>
 </template>
 
@@ -33,6 +36,15 @@ export default {
       type: String,
       required: true,
     },
+    website: {
+      type: String,
+      required: true,
+    }
+  },
+  methods: {
+    handleClick() {
+      window.open(this.website, "_blank");
+    }
   }
 }
 </script>
@@ -42,7 +54,6 @@ export default {
     border: 1px solid #e6e5e1;
     width: 350px;
     padding: 16px;
-    border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
