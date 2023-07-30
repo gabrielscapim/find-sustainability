@@ -8,19 +8,29 @@
 <template>
   <main class="page-container">
     <section class="filters-container">
-      <div class="name-filter-container">
+      <div class="filter-container">
         <Input 
           id="input-find-startup-by-name"
-          label="Procurar startup por nome"
+          label="Buscar startup por nome"
           placeholder="Digite o nome da startup que deseja procurar"
           v-model="test"
         />
         <Button 
-          label="Procurar"
+          label="Buscar"
+          @handleClick="handleFindStartupByName"
         />
       </div>
-      <div class="goal-filter-container">
-
+      <div class="filter-container">
+        <Select
+          id="input-find-startup-by-ods"
+          label="Buscar startup por ODS"
+          :options="goals"
+          v-model="goal"
+        />
+        <Button 
+          label="Buscar"
+          @handleClick="handleFindStartupByOds"
+        />
       </div>
     </section>
     <section class="startups-container">
@@ -39,19 +49,32 @@
 <script>
 import Button from '../components/Button.vue';
 import Input from '../components/Input.vue';
+import Select from '../components/Select.vue';
 import StartupCard from '../components/StartupCard.vue'
 import mockStartups from '../helpers/mockStartups';
+import goalsList from '../helpers/goalsList';
 
 export default {
   comments: {
     StartupCard,
     Input,
     Button,
+    Select,
+  },
+  methods: {
+    handleFindStartupByName() {
+      console.log('clicou');
+    },
+    handleFindStartupByOds() {
+      console.log('clicou');
+    },
   },
   data() {
     return {
       mockStartups,
       test: '',
+      goals: goalsList.map((goal) => goal.name),
+      goal: '1. Erradicação da Pobreza',
     }
   }
 }
@@ -69,9 +92,20 @@ export default {
     width: 25%;
   }
 
+  .button {
+    background-color: #1A614F;
+    border: 1px solid #1A614F;
+  }
+
+  .button:hover {
+    background-color: #91B31E;
+    border: 1px solid #91B31E;
+  }
+
   .label {
     font-weight: bold;
     font-size: 24px;
+    padding-bottom: 16px;
   }
 
   .input {
@@ -79,19 +113,16 @@ export default {
   }
 
   .filters-container {
-    width: 100%;
-    margin-bottom: 32px;
+    width: 90%;
+    margin-bottom: 60px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
   }
 
-  .name-filter-container {
-    width: 45%;
-  }
-
-  .goal-filter-container {
-    width: 45%;
+  .filter-container {
+    width: 47.5%;
+    padding: 0px 12px 12px 12px;
   }
 
   .startups-container {
