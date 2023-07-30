@@ -2,11 +2,13 @@
   <header class="header-container">
     <nav>
       <div class="header-line-1">
-        <img 
-          src="../static/images/logo.png"
-          alt="logo"
-          class="logo-image"
-        >
+        <a href="/">
+          <img 
+            src="../static/images/logo-header.png"
+            alt="logo"
+            class="logo-image"
+          >
+        </a>
       </div>
       <div class="header-line-2">
         <a class="header-option" href="/#about">Sobre</a>
@@ -51,7 +53,7 @@ export default {
   }
 
   .logo-image {
-    width: 60px;
+    width: 300px;
   }
 
   @media all and (max-width: 768px) {

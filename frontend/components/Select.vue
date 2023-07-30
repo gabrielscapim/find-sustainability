@@ -55,7 +55,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
   .select-container {
     display: flex;
     flex-direction: column;
