@@ -140,7 +140,7 @@ export default {
 
     .filter-container {
       width: 100%;
-      padding: 0px 12px 12px 12px;
+      padding: 0px;
     }
 
     .label {
