@@ -45,7 +45,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
   .input-container {
     display: flex;
     flex-direction: column;
