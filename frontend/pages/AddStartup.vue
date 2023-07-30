@@ -24,6 +24,11 @@
         v-model="startup.description"
         :isWrong="checkFields.isDescriptionCorrect === false"
       />
+      <span
+        class="fields-advice"
+      >
+        {{ 255 - this.startup.description.length }}
+      </span>
       <label class="goals-label">
         Selecione as ODS que a empresa contribui
       </label>
@@ -48,6 +53,11 @@
         v-model="startup.website"
         :isWrong="checkFields.isWebsiteCorrect === false"
       />
+      <span
+        class="fields-advice"
+      >
+        Preencha no modelo: https://www.site.com/
+      </span>
       <Input
         id="input-statup-logo"
         label="Link para a logo"
@@ -55,6 +65,11 @@
         v-model="startup.logo"
         :isWrong="checkFields.isLogoCorrect === false"
       />
+      <span
+        class="fields-advice"
+      >
+        Preencha no modelo: https://www.site.com/
+      </span>
       <span
         v-if="checkFields.isFieldsCorrect === false"
         class="check-fields-warning"
@@ -75,6 +90,7 @@ import Checkbox from '../components/Checkbox.vue';
 import Input from '../components/Input.vue'
 import TextArea from '../components/TextArea.vue'
 import goalsList from '../helpers/goalsList';
+import siteRegex from '../helpers/goalsList';
 
 export default {
   components: {
@@ -162,6 +178,14 @@ export default {
     color: red;
     text-align: initial;
     width: 90%;
+  }
+
+  .fields-advice {
+    color: grey;
+    text-align: initial;
+    font-size: 12px;
+    width: 90%;
+    margin-bottom: 12px;
   }
 
   @media all and (max-width: 768px) {
