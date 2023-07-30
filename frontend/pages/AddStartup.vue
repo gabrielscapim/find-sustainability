@@ -15,12 +15,14 @@
         label="Nome"
         placeholder="Digite o nome da empresa"
         v-model="startup.name"
+        :isWrong="checkFields.isNameCorrect === false"
       />
       <TextArea
         id="input-statup-description"
         type="textarea"
         label="Conte-nos um pouco mais sobre a empresa"
         v-model="startup.description"
+        :isWrong="checkFields.isDescriptionCorrect === false"
       />
       <label class="goals-label">
         Selecione as ODS que a empresa contribui
@@ -33,25 +35,32 @@
         v-model="goal.checked"
         :checked="goal.checked"
       />
+      <span
+        v-if="checkFields.isGoalsListCorrect === false"
+        class="check-fields-warning"
+      >
+        Selecione pelo menos uma ODS
+      </span>
       <Input
         id="input-statup-website"
         label="Link para o website"
         placeholder="Digite o link para o website da empresa"
         v-model="startup.website"
+        :isWrong="checkFields.isWebsiteCorrect === false"
       />
       <Input
         id="input-statup-logo"
         label="Link para a logo"
         placeholder="Digite o link para a logo da empresa"
         v-model="startup.logo"
+        :isWrong="checkFields.isLogoCorrect === false"
       />
-      <Input
-        id="input-statup-logo"
-        type="number"
-        label="Contato"
-        placeholder="Digite um número de contato da empresa"
-        v-model="startup.number"
-      />
+      <span
+        v-if="checkFields.isFieldsCorrect === false"
+        class="check-fields-warning"
+      >
+        Preencha os campos obrigatórios
+      </span>
       <Button
         label="Adicionar Startup"
         @handleClick="handleSubmit"
@@ -74,11 +83,6 @@ export default {
     Checkbox,
     Button,
   },
-  methods: {
-    handleSubmit() {
-      console.log('clicou');
-    }
-  },
   data() {
     return {
       startup: {
@@ -87,8 +91,28 @@ export default {
         goalsList,
         website: '',
         logo: '',
-        number: '',
       },
+      checkFields: {
+        isFieldsCorrect: null,
+        isNameCorrect: null,
+        isDescriptionCorrect: null,
+        isGoalsListCorrect: null,
+        isWebsiteCorrect: null,
+        isLogoCorrect: null,
+      }
+    }
+  },
+  methods: {
+    handleSubmit() {
+      if ((this.startup.name).trim().length === 0) this.checkFields.isNameCorrect = false;
+      if ((this.startup.description).trim().length === 0) this.checkFields.isDescriptionCorrect = false;
+      if ((this.startup.goalsList).every(({ checked }) => checked === false)) this.checkFields.isGoalsListCorrect = false;
+      if ((this.startup.website).trim().length === 0) this.checkFields.isWebsiteCorrect = false;
+      if ((this.startup.logo).trim().length === 0) this.checkFields.isLogoCorrect = false;
+      
+      const checkFields = Object.values(this.checkFields).some((field) => field === false);
+
+      if (checkFields) return this.checkFields.isFieldsCorrect = false;
     }
   },
 }
@@ -118,7 +142,7 @@ export default {
     text-align: center;
   }
 
-  .page-container span {
+  .page-title span {
     color: #91B31E;
   }
 
@@ -131,6 +155,13 @@ export default {
   .page-container button {
     margin-top: 32px;
     margin-bottom: 32px;
+  }
+
+  .check-fields-warning {
+    margin: 12px 0px 12px 0px;
+    color: red;
+    text-align: initial;
+    width: 90%;
   }
 
   @media all and (max-width: 768px) {
