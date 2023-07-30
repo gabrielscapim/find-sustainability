@@ -42,7 +42,7 @@ export default {
     },
     maxLength: {
       type: Number,
-      default: 250
+      default: 255
     },
     isWrong: {
       type: Boolean,
