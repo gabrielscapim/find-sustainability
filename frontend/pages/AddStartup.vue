@@ -45,13 +45,6 @@
         placeholder="Digite o link para a logo da empresa"
         v-model="startup.logo"
       />
-      <Input
-        id="input-statup-logo"
-        type="number"
-        label="Contato"
-        placeholder="Digite um número de contato da empresa"
-        v-model="startup.number"
-      />
       <Button
         label="Adicionar Startup"
         @handleClick="handleSubmit"
@@ -87,7 +80,6 @@ export default {
         goalsList,
         website: '',
         logo: '',
-        number: '',
       },
     }
   },

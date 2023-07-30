@@ -9,7 +9,7 @@
           Explore nossa plataforma e descubra startups comprometidas em construir um futuro melhor para todos. Cada projeto é um elo valioso na preservação do nosso planeta.
         </p>
         <div class="main-buttons-container">
-          <Button label="Buscar Startup" @handleClick="handleAddStartup"/>
+          <Button label="Buscar Startup" @handleClick="handleFindStartup"/>
           <Button label="Cadastrar Startup" @handleClick="handleAddStartup"/>
         </div>
       </article>
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     handleFindStartup() {
-      this.$router.push('add-startup');
+      this.$router.push('find-startup');
     },
 
     handleAddStartup() {

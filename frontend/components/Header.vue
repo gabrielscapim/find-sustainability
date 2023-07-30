@@ -10,7 +10,7 @@
       </div>
       <div class="header-line-2">
         <a class="header-option" href="/#about">Sobre</a>
-        <a class="header-option" href="/">Buscar Startup</a>
+        <a class="header-option" href="/find-startup">Buscar Startup</a>
         <a class="header-option" href="/add-startup">Cadastrar Startup</a>
       </div>
     </nav>
