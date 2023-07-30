@@ -7,7 +7,7 @@
       {{ label }}
     </label>
     <textarea
-      class="input"
+      :class="isWrong ? 'input wrong-input' : 'input'"
       :id="id"
       :type="type"
       :value="modelValue"
@@ -43,6 +43,9 @@ export default {
     maxLength: {
       type: Number,
       default: 250
+    },
+    isWrong: {
+      type: Boolean,
     }
   },
 }
@@ -67,6 +70,10 @@ export default {
     padding: 2px 4px 2px 4px;
     height: 72px;
     font-family: 'MuseoSansRounded-300';
+  }
+
+  .wrong-input {
+    border: 1px solid red;
   }
 
   .input:focus {
