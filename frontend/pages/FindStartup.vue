@@ -113,15 +113,16 @@ export default {
   }
 
   .filters-container {
-    width: 90%;
+    width: 100%;
     margin-bottom: 60px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    border-bottom: 1px solid #e6e5e1;
   }
 
   .filter-container {
-    width: 47.5%;
+    width: 45%;
     padding: 0px 12px 12px 12px;
   }
 
@@ -130,5 +131,24 @@ export default {
     flex-wrap: wrap;
     justify-content: space-evenly;
     width: 95%;
+  }
+
+  @media all and (max-width: 1024px) {
+    .filters-container {
+      flex-direction: column;
+    }
+
+    .filter-container {
+      width: 100%;
+      padding: 0px 12px 12px 12px;
+    }
+
+    .label {
+      font-size: 20px;
+    }
+
+    .input {
+      font-size: 14px;
+    }
   }
 </style>
