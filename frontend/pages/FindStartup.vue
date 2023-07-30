@@ -81,49 +81,53 @@ export default {
 </script>
 
 <style>
-  .page-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
   .input-container {
     margin: 0px;
-    width: 25%;
   }
 
-  .button {
-    background-color: #1A614F;
-    border: 1px solid #1A614F;
-  }
-
-  .button:hover {
-    background-color: #91B31E;
-    border: 1px solid #91B31E;
-  }
-
-  .label {
-    font-weight: bold;
-    font-size: 24px;
-    padding-bottom: 16px;
+  .select-container {
+    margin: 0px;
   }
 
   .input {
-    font-size: 18px;
+    margin-top: 12px;
+  }
+
+  .select {
+    margin-top: 12px;
   }
 
   .filters-container {
-    width: 100%;
-    margin-bottom: 60px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border-bottom: 1px solid #e6e5e1;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
   }
 
   .filter-container {
-    width: 45%;
-    padding: 0px 12px 12px 12px;
+    width: 80%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 12px;
+    margin-bottom: 20px;
+  }
+
+  .input {
+    margin-right: 16px;
+  }
+
+  .select {
+    margin-right: 16px;
+  }
+
+  .label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .button {
+    font-size: 14px;
   }
 
   .startups-container {
@@ -133,22 +137,23 @@ export default {
     width: 95%;
   }
 
-  @media all and (max-width: 1024px) {
-    .filters-container {
-      flex-direction: column;
-    }
-
+  @media all and (max-width: 768px) {
     .filter-container {
+      width: 95%;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .input-container {
       width: 100%;
-      padding: 0px;
     }
 
-    .label {
-      font-size: 20px;
+    .select-container {
+      width: 100%;
     }
 
-    .input {
-      font-size: 14px;
+    .button {
+      margin-top: 16px;
     }
   }
 </style>
