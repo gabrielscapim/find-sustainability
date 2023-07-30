@@ -138,7 +138,6 @@ export default {
   .page-container {
     width: 100%;
     display: flex;
-    margin-top: 48px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
