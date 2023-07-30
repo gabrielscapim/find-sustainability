@@ -7,7 +7,7 @@
       {{ label }}
     </label>
     <input
-      class="input"
+      :class="isWrong ? 'input wrong-input' : 'input'"
       :id="id"
       :type="type"
       :value="modelValue"
@@ -37,6 +37,9 @@ export default {
     },
     placeholder: {
       type: String,
+    },
+    isWrong: {
+      type: Boolean,
     }
   },
 };
@@ -62,6 +65,10 @@ export default {
     padding: 2px 4px 2px 4px;
     height: 28px;
     font-family: 'MuseoSansRounded-300';
+  }
+
+  .wrong-input {
+    border-bottom: 1px solid red;
   }
 
   .input:focus {
