@@ -25,7 +25,20 @@ const getStartupsByName = async (startupName) => {
   return { status: 'SUCESSFUL', data: result };
 };
 
+const getStartupsByGoal = async (goalId) => {
+  const startups = await startupModel.getStartupsByGoal(goalId);
+
+  if (!startups) {
+    return { status: 'NOT_FOUND', data: { message: 'Startups not found' } };
+  }
+
+  const result = formatStartupsArray(startups);
+
+  return { status: 'SUCESSFUL', data: result };
+};
+
 module.exports = {
     getAllStartups,
     getStartupsByName,
+    getStartupsByGoal,
 };
