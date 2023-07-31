@@ -44,6 +44,12 @@
         :description="startup.description"
         :website="startup.website"
       />
+      <span
+        v-if="startups.length === 0"
+        class="result-advice"
+      >
+        Nenhum resultado foi encontrado, tente novamente.
+      </span>
     </section>
   </main>
 </template>
@@ -164,6 +170,12 @@ export default {
     width: 80%;
     text-align: center;
     margin-bottom: 20px;
+  }
+
+  .result-advice {
+    color: grey;
+    font-size: 16px;
+    text-align: center;
   }
 
   @media all and (max-width: 768px) {
