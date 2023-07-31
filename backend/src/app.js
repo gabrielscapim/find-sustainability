@@ -1,9 +1,16 @@
 const express = require('express');
-const { startupRoutes } = require('./routes');
+const cors = require('cors');
+const { startupRoutes, goalRoutes } = require('./routes');
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
+app.use(cors({
+    origin: '*',
+}));
 app.use(express.json());
-app.use('/startups', startupRoutes);
+app.use('/startup', startupRoutes);
+app.use('/goal', goalRoutes);
+app.use(errorHandler);
 
 module.exports = app;

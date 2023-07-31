@@ -53,6 +53,7 @@ import Select from '../components/Select.vue';
 import StartupCard from '../components/StartupCard.vue'
 import mockStartups from '../helpers/mockStartups';
 import goalsList from '../helpers/goalsList';
+import api from '../services/api';
 
 export default {
   comments: {
@@ -68,6 +69,11 @@ export default {
     handleFindStartupByOds() {
       console.log('clicou');
     },
+  },
+  async created() {
+    const response = await fetch('http://localhost:3003/startup');
+    const data = await response.json();
+    console.log(data);
   },
   data() {
     return {
