@@ -162,6 +162,7 @@ export default {
     font-size: 12px;
     color: grey;
     width: 80%;
+    text-align: center;
     margin-bottom: 20px;
   }
 
