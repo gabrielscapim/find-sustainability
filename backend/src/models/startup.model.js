@@ -64,7 +64,7 @@ const getStartupsByGoal = async (goalId) => {
 
 const addStartup = async (startup) => {
   const { name, description, website, logo, goals } = startup;
-  console.log(goals);
+
   const STARTUP_QUERY = `INSERT INTO startups (name, description, website, logo) 
     VALUES (?, ?, ?, ?)`;
   const STARTUP_GOAL_QUERY = 'INSERT INTO startups_goals (id_startup, id_goal) VALUES (?, ?)';
@@ -72,9 +72,8 @@ const addStartup = async (startup) => {
   const [{ insertId }] = await connection.execute(
     STARTUP_QUERY, [name, description, website, logo],
   );
-    console.log(insertId);
+
   const promises = goals.map(async ({ id }) => {
-    console.log(id);
     await connection.execute(STARTUP_GOAL_QUERY, [insertId, id]);
   });
 
