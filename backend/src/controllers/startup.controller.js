@@ -17,6 +17,23 @@ const getAllStartups = async (_req, res) => {
   }
 };
 
+const getStartupsByName = async (req, res) => {
+  try {
+    const { name: startupName } = req.query;
+    const { status, data } = await startupService.getStartupsByName(startupName);
+
+    if (status !== 'SUCESSFUL') {
+        return res.status(404).json(data);
+    }
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(serverErrorMessage);
+  }
+};
+
 module.exports = {
   getAllStartups,
+  getStartupsByName,
 };
