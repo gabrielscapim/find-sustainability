@@ -49,8 +49,25 @@ const getStartupsByGoal = async (req, res) => {
   }
 };
 
+const addStartup = async (req, res) => {
+  try {
+    const startup = req.body;
+    const { status, data } = await startupService.addStartup(startup);
+
+    if (status !== 'SUCESSFUL') {
+        return res.status(404).json(data);
+    }
+
+    return res.status(201).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(serverErrorMessage);
+  }
+};
+
 module.exports = {
   getAllStartups,
   getStartupsByName,
   getStartupsByGoal,
+  addStartup,
 };

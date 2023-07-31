@@ -37,8 +37,19 @@ const getStartupsByGoal = async (goalId) => {
   return { status: 'SUCESSFUL', data: result };
 };
 
+const addStartup = async (startup) => {
+  const insertId = await startupModel.addStartup(startup);
+
+  if (!startup) {
+    return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to add startup' } };
+  }
+  
+  return { status: 'SUCESSFUL', data: { name: startup.name, id: insertId } };
+};
+
 module.exports = {
     getAllStartups,
     getStartupsByName,
     getStartupsByGoal,
+    addStartup,
 };

@@ -4,7 +4,7 @@ const { startupRoutes, goalRoutes } = require('./routes');
 const app = express();
 
 app.use(express.json());
-app.use('/startups', startupRoutes);
-app.use('/goals', goalRoutes);
+app.use('/startup', startupRoutes);
+app.use('/goal', goalRoutes);
 
 module.exports = app;
