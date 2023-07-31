@@ -19,7 +19,7 @@ const getAllStartups = async (_req, res) => {
 
 const getStartupsByName = async (req, res) => {
   try {
-    const { name: startupName } = req.query;
+    const { q: startupName } = req.query;
     const { status, data } = await startupService.getStartupsByName(startupName);
 
     if (status !== 'SUCESSFUL') {
