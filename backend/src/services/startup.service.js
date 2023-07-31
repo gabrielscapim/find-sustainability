@@ -1,3 +1,4 @@
+const formatStartupsArray = require('../helpers/formatStartupsArray');
 const { startupModel } = require('../models');
 
 const getAllStartups = async () => {
@@ -5,9 +6,11 @@ const getAllStartups = async () => {
 
   if (!startups) {
     return { status: 'NOT_FOUND', data: { message: 'Startups not found' } };
-}
+  }
 
-  return { status: 'SUCESSFUL', data: startups };
+  const result = formatStartupsArray(startups);
+
+  return { status: 'SUCESSFUL', data: result };
 };
 
 module.exports = {
