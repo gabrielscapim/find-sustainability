@@ -27,6 +27,7 @@
         label="Entrar"
         @handleClick="handleSubmit"
       />
+      <a href="/add-startup">Não tenho cadastro</a>
     </form>
   </section>
 </template>
@@ -71,14 +72,14 @@ export default {
   }
 
   .form {
-    min-width: 350px;
-    max-width: 400px;
+    min-width: 320px;
+    margin: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     border: 1px solid #e6e5e1;
     border-radius: 12px;
-    padding: 20px;
+    padding: 32px;
     height: 300px;
     justify-content: center;
     margin-top: 20px;
@@ -86,10 +87,24 @@ export default {
 
   .button {
     max-height: 48px;
-    max-width: 85px;
+    width: 100%;
   }
 
   .input {
     width: 100%;
+    margin: 0px;
+  }
+
+  .input-container {
+    width: 100%;
+  }
+
+  .form a {
+    font-size: 14px;
+    margin-top: 16px;
+    width: 100%;
+    text-align: center;
+    color: grey;
+    text-decoration: none;
   }
 </style>
