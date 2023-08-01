@@ -47,9 +47,42 @@ const addStartup = async (startup) => {
   return { status: 'SUCESSFUL', data: { name: startup.name, id: insertId } };
 };
 
+const getStartupByEmail = async (email) => {
+  const startup = await startupModel.getStartupByEmail(email);
+
+  if (!startup) {
+    return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to find startup' } };
+  }
+  
+  return { status: 'SUCESSFUL', data: startup };
+};
+
+const editStartup = async (startupToUpdate, id) => {
+  const startup = await startupModel.editStartup(startupToUpdate, id);
+
+  if (!startup) {
+    return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to update startup' } };
+  }
+  
+  return { status: 'SUCESSFUL', data: startup };
+};
+
+const deleteStartup = async (id) => {
+  const response = await startupModel.deleteStartup(id);
+
+  if (!response) {
+    return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to delete startup' } };
+  }
+  
+  return { status: 'SUCESSFUL', data: response };
+};
+
 module.exports = {
     getAllStartups,
     getStartupsByName,
     getStartupsByGoal,
     addStartup,
+    getStartupByEmail,
+    editStartup,
+    deleteStartup,
 };

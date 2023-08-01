@@ -2,7 +2,7 @@ const checkRequiredFields = require('../helpers/checkRequiredFields');
 
 const validateStartupFields = (req, _res, next) => {
   const { body } = req;
-  const requiredFields = ['name', 'description', 'website', 'logo', 'goals'];
+  const requiredFields = ['name', 'description', 'website', 'logo', 'goals', 'email', 'password'];
 
   const requiredFieldError = checkRequiredFields(body, requiredFields);
 

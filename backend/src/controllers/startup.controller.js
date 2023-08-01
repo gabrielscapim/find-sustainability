@@ -65,9 +65,41 @@ const addStartup = async (req, res) => {
   }
 };
 
+const editStartup = async (req, res) => {
+  try {
+    const startup = req.body;
+    const { id } = req.params;
+    const { status, data } = await startupService.editStartup(startup, id);
+
+    if (status !== 'SUCESSFUL') {
+        return res.status(404).json(data);
+    }
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(serverErrorMessage);
+  }
+};
+
+const deleteStartup = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await startupService.deleteStartup(id);
+
+    return res.status(204).json();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(serverErrorMessage);
+  }
+};
+
 module.exports = {
   getAllStartups,
   getStartupsByName,
   getStartupsByGoal,
   addStartup,
+  editStartup,
+  deleteStartup,
 };
