@@ -4,13 +4,13 @@ const { startupService } = require('../services');
 const loginAuthentication = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await startupService.getStartupByEmail(email);
-  
-    if (!user || user.password !== password) {
+    const startup = await startupService.getStartupByEmail(email);
+
+    if (!startup || startup.data.password !== password) {
       return res.status(400).json({ message: 'Invalid fields' });
     }
   
-    const { password: _password, ...userWithoutPassword } = user.dataValues;
+    const { password: _password, ...userWithoutPassword } = startup.data;
   
     const payload = { data: userWithoutPassword };
     const token = createToken(payload);

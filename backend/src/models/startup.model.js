@@ -85,8 +85,8 @@ const addStartup = async (startup) => {
 const getStartupByEmail = async (email) => {
   const QUERY = 'SELECT * FROM startups WHERE email = ?';
 
-  const [startup] = await connection.execute(QUERY, email);
-  
+  const [[startup]] = await connection.execute(QUERY, [email]);
+
   return startup;
 };
 
@@ -95,15 +95,15 @@ const editStartup = async (startupToUpdate) => {
 
   const QUERY = 'UPDATE startups SET name = ?, description = ?, website = ?, logo = ? WHERE id = ?';
 
-  const [startup] = await connection.execute(QUERY, name, description, website, logo, id);
+  const [startup] = await connection.execute(QUERY, [name, description, website, logo, id]);
   
   return startup;
 };
 
 const deleteStartup = async (id) => {
   const QUERY = 'DELETE FROM startups WHERE id = ?';
-
-  const response = await connection.execute(QUERY, id);
+  
+  const response = await connection.execute(QUERY, [id]);
   
   return response;
 };
