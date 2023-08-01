@@ -87,7 +87,7 @@ const deleteStartup = async (req, res) => {
 
     await startupService.deleteStartup(id);
 
-    return res.status.json(204);
+    return res.status(204).json();
   } catch (error) {
     console.log(error);
     return res.status(500).json(serverErrorMessage);
