@@ -63,14 +63,14 @@ const getStartupsByGoal = async (goalId) => {
 };
 
 const addStartup = async (startup) => {
-  const { name, description, website, logo, goals } = startup;
+  const { name, description, website, logo, goals, email, password } = startup;
 
-  const STARTUP_QUERY = `INSERT INTO startups (name, description, website, logo) 
-    VALUES (?, ?, ?, ?)`;
+  const STARTUP_QUERY = `INSERT INTO startups (name, description, website, logo, email, password) 
+    VALUES (?, ?, ?, ?, ?, ?)`;
   const STARTUP_GOAL_QUERY = 'INSERT INTO startups_goals (id_startup, id_goal) VALUES (?, ?)';
 
   const [{ insertId }] = await connection.execute(
-    STARTUP_QUERY, [name, description, website, logo],
+    STARTUP_QUERY, [name, description, website, logo, email, password],
   );
 
   const promises = goals.map(async ({ id }) => {
@@ -82,9 +82,18 @@ const addStartup = async (startup) => {
   return insertId;
 };
 
+const getStartupByEmail = async (email) => {
+  const QUERY = 'SELECT * FROM startups WHERE email = ?';
+
+  const [startup] = await connection.execute(QUERY, email);
+  
+  return startup;
+};
+
 module.exports = {
   getAllStartups,
   getStartupsByName,
   getStartupsByGoal,
   addStartup,
+  getStartupByEmail,
 };
