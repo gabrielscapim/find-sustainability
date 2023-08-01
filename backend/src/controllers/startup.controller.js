@@ -68,7 +68,8 @@ const addStartup = async (req, res) => {
 const editStartup = async (req, res) => {
   try {
     const startup = req.body;
-    const { status, data } = await startupService.addStartup(startup);
+    const { id } = req.params;
+    const { status, data } = await startupService.editStartup(startup, id);
 
     if (status !== 'SUCESSFUL') {
         return res.status(404).json(data);

@@ -57,8 +57,8 @@ const getStartupByEmail = async (email) => {
   return { status: 'SUCESSFUL', data: startup };
 };
 
-const editStartup = async (startupToUpdate) => {
-  const startup = await startupModel.editStartup(startupToUpdate);
+const editStartup = async (startupToUpdate, id) => {
+  const startup = await startupModel.editStartup(startupToUpdate, id);
 
   if (!startup) {
     return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to update startup' } };

@@ -90,8 +90,8 @@ const getStartupByEmail = async (email) => {
   return startup;
 };
 
-const editStartup = async (startupToUpdate) => {
-  const { id, name, description, website, logo } = startupToUpdate;
+const editStartup = async (startupToUpdate, id) => {
+  const { name, description, website, logo } = startupToUpdate;
 
   const QUERY = 'UPDATE startups SET name = ?, description = ?, website = ?, logo = ? WHERE id = ?';
 
