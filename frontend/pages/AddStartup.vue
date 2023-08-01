@@ -196,8 +196,8 @@ export default {
         })
         .filter((goal) => goal !== undefined);
   
-        const { name, description, website, logo } = this.startup;
-        const newStartup = { name, description, website, logo, goals };
+        const { name, description, website, logo, email, password } = this.startup;
+        const newStartup = { name, description, website, logo, goals, email, password };
   
         await apiRequest('post', '/startup', newStartup);
         this.startupHasBeenAdded = true;

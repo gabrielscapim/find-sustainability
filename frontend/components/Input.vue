@@ -43,7 +43,7 @@ export default {
       type: Boolean,
     },
     maxLenght: {
-      type: Number,
+      type: String,
       default: "20"
     }
   },
