@@ -18,6 +18,7 @@
         placeholder="Digite o nome da empresa"
         v-model="startup.name"
         :isWrong="checkFields.isNameCorrect === false"
+        maxLenght="45"
       />
       <Input
         v-if="mode === 'add'"
@@ -26,6 +27,7 @@
         placeholder="Digite o e-mail da empresa"
         v-model="startup.email"
         :isWrong="checkFields.isEmailCorrect === false"
+        maxLenght="90"
       />
       <Input
         v-if="mode === 'add'"
@@ -35,6 +37,7 @@
         placeholder="Digite uma senha para o cadastro"
         v-model="startup.password"
         :isWrong="checkFields.isPasswordCorrect === false"
+        maxLenght="45"
       />
       <TextArea
         id="input-statup-description"
@@ -42,6 +45,7 @@
         label="Conte-nos um pouco mais sobre a empresa"
         v-model="startup.description"
         :isWrong="checkFields.isDescriptionCorrect === false"
+        maxLenght="255"
       />
       <span
         class="fields-advice"
@@ -73,6 +77,7 @@
         placeholder="Digite o link para o website da empresa"
         v-model="startup.website"
         :isWrong="checkFields.isWebsiteCorrect === false"
+        maxLenght=255
       />
       <span
         class="fields-advice"
@@ -85,6 +90,7 @@
         placeholder="Digite o link para a logo da empresa"
         v-model="startup.logo"
         :isWrong="checkFields.isLogoCorrect === false"
+        maxLenght="255"
       />
       <span
         class="fields-advice"

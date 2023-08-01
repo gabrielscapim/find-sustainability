@@ -13,6 +13,7 @@
       :value="modelValue"
       :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"
+      :maxlength="maxLenght"
     />
   </div>
 </template>
@@ -40,6 +41,10 @@ export default {
     },
     isWrong: {
       type: Boolean,
+    },
+    maxLenght: {
+      type: Number,
+      default: "20"
     }
   },
 };
