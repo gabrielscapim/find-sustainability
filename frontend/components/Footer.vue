@@ -1,6 +1,14 @@
 <template>
   <footer class="footer-container">
-    Developed by <a href="https://www.linkedin.com/in/gabrielscapim/">Gabriel Scapim</a>
+    <div class="signature">
+      <span>Developed by</span>
+      <a 
+        href="https://www.linkedin.com/in/gabrielscapim/"
+        target="_blank"
+      >
+        Gabriel Scapim
+      </a>
+    </div>
   </footer>
 </template>
 
@@ -12,6 +20,15 @@ export default {
 
 <style scoped>
   .footer-container {
-    border: 1px solid red;
+    border-top: 1px solid #e6e5e1;
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    padding: 24px;
+  }
+
+  .signature a {
+    color: black;
+    text-decoration: none;
   }
 </style>
