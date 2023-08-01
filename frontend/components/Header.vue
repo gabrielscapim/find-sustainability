@@ -14,6 +14,7 @@
         <a class="header-option" href="/#about">Sobre</a>
         <a class="header-option" href="/find-startup">Buscar Startup</a>
         <a class="header-option" href="/add-startup">Cadastrar Startup</a>
+        <a class="header-option" href="/login">Login</a>
       </div>
     </nav>
   </header>
@@ -35,6 +36,7 @@ export default {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
   }
 
   .header-container nav {
@@ -56,9 +58,11 @@ export default {
     width: 300px;
   }
 
-  @media all and (max-width: 768px) {
+  @media all and (max-width: 828px) {
     .header-container nav {
+      display: flex;
       flex-direction: column;
+      align-items: center;
     }
 
     .header-line-1 {
@@ -68,15 +72,27 @@ export default {
     }
 
     .header-line-2 {
-      margin-left: 0%;
       margin-top: 24px;
       width: 100%;
       display: flex;
       justify-content: center;
+    }
+  }
+
+  @media all and (max-width: 524px) {
+    .header-line-2 {
+      margin-left: 0%;
+      width: 95%;
+      display: inline;
       overflow: auto;
       white-space: nowrap;
-      overflow-x: scroll;
     }
 
-}
+    .header-option {
+      display: inline-block;
+      text-align: center;
+      padding: 14px;
+      margin-right: 0%;
+    }
+  }
 </style>
