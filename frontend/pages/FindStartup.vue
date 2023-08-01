@@ -13,35 +13,43 @@
           id="input-find-startup-by-name"
           label="Buscar startup por nome"
           placeholder="Digite o nome da startup que deseja procurar"
-          v-model="test"
+          v-model="filter.startupName"
         />
         <Button 
           label="Buscar"
           @handleClick="handleFindStartupByName"
         />
       </div>
+      <span v-if="filter.isNameFilterEnabled" class="filter-advice">Filtro por nome aplicado</span>
       <div class="filter-container">
         <Select
           id="input-find-startup-by-ods"
           label="Buscar startup por ODS"
           :options="goals"
-          v-model="goal"
+          v-model="filter.goal"
         />
         <Button 
           label="Buscar"
           @handleClick="handleFindStartupByOds"
         />
       </div>
+      <span v-if="filter.isGoalFilterEnabled" class="filter-advice">Filtro por ODS aplicado</span>
     </section>
     <section class="startups-container">
       <StartupCard 
-        v-for="startup in mockStartups"
-        :key="startup.name"
+        v-for="(startup, index) in startups"
+        :key="index"
         :src="startup.logo"
         :name="startup.name"
         :description="startup.description"
         :website="startup.website"
       />
+      <span
+        v-if="startups.length === 0"
+        class="result-advice"
+      >
+        Nenhum resultado foi encontrado, tente novamente.
+      </span>
     </section>
   </main>
 </template>
@@ -51,9 +59,8 @@ import Button from '../components/Button.vue';
 import Input from '../components/Input.vue';
 import Select from '../components/Select.vue';
 import StartupCard from '../components/StartupCard.vue'
-import mockStartups from '../helpers/mockStartups';
 import goalsList from '../helpers/goalsList';
-import api from '../services/api';
+import apiRequest from '../services/apiRequest';
 
 export default {
   comments: {
@@ -63,24 +70,39 @@ export default {
     Select,
   },
   methods: {
-    handleFindStartupByName() {
-      console.log('clicou');
+    async handleFindStartupByName() {
+      const data = await apiRequest('get', `/startup/search/name?q=${this.filter.startupName}`);
+
+      this.filter.isGoalFilterEnabled = false;
+      this.filter.isNameFilterEnabled = true;
+      this.startups = data;
     },
-    handleFindStartupByOds() {
-      console.log('clicou');
+    async handleFindStartupByOds() {
+      const goal = this.filter.goal.split('')[0];
+      const data = await apiRequest('get', `/startup/search/goal?id=${goal}`);
+
+      this.filter.isGoalFilterEnabled = true;
+      this.filter.isNameFilterEnabled = false;
+      this.startups = data;
     },
+    async getStartupsNoFilter() {
+      const data = await apiRequest('get', '/startup');
+      this.startups = data;
+    }
   },
   async created() {
-    const response = await fetch('http://localhost:3003/startup');
-    const data = await response.json();
-    console.log(data);
+    await this.getStartupsNoFilter();
   },
   data() {
     return {
-      mockStartups,
-      test: '',
+      startups: [],
       goals: goalsList.map((goal) => goal.name),
-      goal: '1. Erradicação da Pobreza',
+      filter: {
+        isNameFilterEnabled: false,
+        isGoalFilterEnabled: false,
+        startupName: '',
+        goal: '1. Erradicação da Pobreza',
+      },
     }
   }
 }
@@ -116,7 +138,6 @@ export default {
     align-items: flex-end;
     justify-content: space-around;
     padding: 12px;
-    margin-bottom: 20px;
   }
 
   .input {
@@ -141,6 +162,20 @@ export default {
     flex-wrap: wrap;
     justify-content: space-evenly;
     width: 95%;
+  }
+
+  .filter-advice {
+    font-size: 12px;
+    color: grey;
+    width: 80%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .result-advice {
+    color: grey;
+    font-size: 16px;
+    text-align: center;
   }
 
   @media all and (max-width: 768px) {

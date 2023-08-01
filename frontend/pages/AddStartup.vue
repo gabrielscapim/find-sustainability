@@ -9,7 +9,8 @@
     <h1 class="page-title">
       Obrigado por escolher fazer a <span>diferença!</span>
     </h1>
-    <form class="form">
+    <h1 v-if="startupHasBeenAdded">Startup adicionada com sucesso!</h1>
+    <form class="form" v-if="!startupHasBeenAdded">
       <Input
         id="input-statup-name"
         label="Nome"
@@ -90,7 +91,7 @@ import Checkbox from '../components/Checkbox.vue';
 import Input from '../components/Input.vue'
 import TextArea from '../components/TextArea.vue'
 import goalsList from '../helpers/goalsList';
-import siteRegex from '../helpers/goalsList';
+import apiRequest from '../services/apiRequest';
 
 export default {
   components: {
@@ -115,20 +116,52 @@ export default {
         isGoalsListCorrect: null,
         isWebsiteCorrect: null,
         isLogoCorrect: null,
-      }
+      },
+      startupHasBeenAdded: false,
     }
   },
   methods: {
-    handleSubmit() {
+    checkFormInputs() {
       if ((this.startup.name).trim().length === 0) this.checkFields.isNameCorrect = false;
       if ((this.startup.description).trim().length === 0) this.checkFields.isDescriptionCorrect = false;
-      if ((this.startup.goalsList).every(({ checked }) => checked === false)) this.checkFields.isGoalsListCorrect = false;
+      if ((this.startup.goalsList).every(({ checked }) => checked === false)) {
+        this.checkFields.isGoalsListCorrect = false;
+      } else {
+        this.checkFields.isGoalsListCorrect = true;
+      }
       if ((this.startup.website).trim().length === 0) this.checkFields.isWebsiteCorrect = false;
       if ((this.startup.logo).trim().length === 0) this.checkFields.isLogoCorrect = false;
-      
-      const checkFields = Object.values(this.checkFields).some((field) => field === false);
+    },
+    checkAllInputs() {
+      const { name, description, website, logo } = this.startup;
+      const stringInputs = [name, description, website, logo];
+      const isStringInputsCorrect = stringInputs.every((input) => (
+        input.trim().length !== 0
+      ));
 
-      if (checkFields) return this.checkFields.isFieldsCorrect = false;
+      if (isStringInputsCorrect && this.checkFields.isGoalsListCorrect) {
+        return this.checkFields.isFieldsCorrect = true;
+      }
+      
+      return this.checkFields.isFieldsCorrect = false;
+    },
+    async handleSubmit() {
+      this.checkFormInputs();
+      this.checkAllInputs();
+      
+      if (this.checkFields.isFieldsCorrect) {
+        const goals = this.startup.goalsList
+        .map(({ checked, name }) => {
+          if (checked) return { id: Number(name.split('')[0]), name }
+        })
+        .filter((goal) => goal !== undefined);
+  
+        const { name, description, website, logo } = this.startup;
+        const newStartup = { name, description, website, logo, goals };
+  
+        await apiRequest('post', '/startup', newStartup);
+        this.startupHasBeenAdded = true;
+      }
     }
   },
 }
