@@ -22,6 +22,7 @@
         v-model="startup.name"
         :isWrong="checkFields.isNameCorrect === false"
         maxLenght="45"
+        :modelValue="startup.name"
       />
       <Input
         v-if="mode === 'add'"
@@ -31,6 +32,7 @@
         v-model="startup.email"
         :isWrong="checkFields.isEmailCorrect === false"
         maxLenght="90"
+        :modelValue="startup.email"
       />
       <Input
         v-if="mode === 'add'"
@@ -41,6 +43,7 @@
         v-model="startup.password"
         :isWrong="checkFields.isPasswordCorrect === false"
         maxLenght="45"
+        :modelValue="startup.password"
       />
       <TextArea
         id="input-statup-description"
@@ -49,6 +52,7 @@
         v-model="startup.description"
         :isWrong="checkFields.isDescriptionCorrect === false"
         maxLenght="255"
+        :modelValue="startup.description"
       />
       <span
         class="fields-advice"
@@ -81,6 +85,7 @@
         v-model="startup.website"
         :isWrong="checkFields.isWebsiteCorrect === false"
         maxLenght=255
+        :modelValue="startup.website"
       />
       <span
         class="fields-advice"
@@ -94,6 +99,7 @@
         v-model="startup.logo"
         :isWrong="checkFields.isLogoCorrect === false"
         maxLenght="255"
+        :modelValue="startup.logo"
       />
       <span
         class="fields-advice"
@@ -120,7 +126,7 @@ import Checkbox from '../components/Checkbox.vue';
 import Input from '../components/Input.vue'
 import TextArea from '../components/TextArea.vue'
 import goalsList from '../helpers/goalsList';
-import apiRequest from '../services/apiRequest';
+import { apiRequest } from '../services/apiRequest';
 
 export default {
   components: {
@@ -133,11 +139,24 @@ export default {
   async created() {
     const startupId = this.$route.query.id;
     if (startupId) {
-      this.mode = 'edit';
-      this.startupId = startupId;
+      try {
+        const startupEmail = localStorage.getItem('startup_email');
+        const startupToEdit = await apiRequest('get', `/startup/${startupId}`);
 
-      const startupToEdit = await apiRequest('get', `/startup/${startupId}`);
-      console.log(startupToEdit);
+        this.mode = 'edit';
+        this.startupId = startupId;
+  
+        if (startupEmail !== startupToEdit.email) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('startup_id');
+          this.$router.push('/login');
+          return null;
+        }
+
+        this.startup = startupToEdit;
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, 
   data() {
@@ -164,7 +183,6 @@ export default {
       },
       startupHasBeenAdded: false,
       startupHasBeenEddited: false,
-      startupId: null,
     }
   },
   methods: {
@@ -218,14 +236,18 @@ export default {
     },
     async updateStartup() {
       try {
-        this.checkFormInputs();
-        this.checkAllInputs();
+        const isInputsCorrect = Object.values(this.startup).every((input) => (
+          String(input).trim().length !== 0
+        ));
+        
+        if (!isInputsCorrect) return this.checkFields.isFieldsCorrect = false;
+
+        if (isInputsCorrect) {
+          const { email, id, ...startupToUpdate } = this.startup;
   
-        if (this.checkFields.isFieldsCorrect) {
-          const { name, description, website, logo } = this.startup;
-  
-          await apiRequest('put', `/startup/${this.startupId}`, { name, description, website, logo });
+          const response = await apiRequest('put', `/startup/${id}`, startupToUpdate);
           this.startupHasBeenEddited = true;
+          console.log(response);
         }
       } catch (error) {
         console.log(error);
