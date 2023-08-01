@@ -129,6 +129,7 @@ export default {
     Checkbox,
     Button,
   },
+  middleware: 'authMiddleware',
   created() {
     const startupId = this.$route.query.id;
     if (startupId) {
