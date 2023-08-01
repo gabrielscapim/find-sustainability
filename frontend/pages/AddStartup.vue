@@ -11,7 +11,10 @@
     </h1>
     <h1 v-if="startupHasBeenAdded">Startup adicionada com sucesso!</h1>
     <h1 v-if="startupHasBeenEddited">Startup editada com sucesso!</h1>
-    <form class="form" v-if="!startupHasBeenAdded || !startupHasBeenEddited">
+    <form
+      class="form" 
+      v-if="(!startupHasBeenAdded && mode === 'add') || (!startupHasBeenEddited && mode === 'edit') "
+    >
       <Input
         id="input-statup-name"
         label="Nome"
@@ -163,6 +166,8 @@ export default {
   methods: {
     checkFormInputs() {
       if ((this.startup.name).trim().length === 0) this.checkFields.isNameCorrect = false;
+      if ((this.startup.email).trim().length === 0) this.checkFields.isEmailCorrect = false;
+      if ((this.startup.password).trim().length === 0) this.checkFields.isPasswordCorrect = false;
       if ((this.startup.description).trim().length === 0) this.checkFields.isDescriptionCorrect = false;
       if ((this.startup.goalsList).every(({ checked }) => checked === false)) {
         this.checkFields.isGoalsListCorrect = false;
@@ -173,8 +178,8 @@ export default {
       if ((this.startup.logo).trim().length === 0) this.checkFields.isLogoCorrect = false;
     },
     checkAllInputs() {
-      const { name, description, website, logo } = this.startup;
-      const stringInputs = [name, description, website, logo];
+      const { name, description, website, logo, password, email } = this.startup;
+      const stringInputs = [name, description, website, logo, password, email];
       const isStringInputsCorrect = stringInputs.every((input) => (
         input.trim().length !== 0
       ));
@@ -186,38 +191,45 @@ export default {
       return this.checkFields.isFieldsCorrect = false;
     },
     async addStartup() {
-      this.checkFormInputs();
-      this.checkAllInputs();
-      
-      if (this.checkFields.isFieldsCorrect) {
-        const goals = this.startup.goalsList
-        .map(({ checked, name }) => {
-          if (checked) return { id: Number(name.split('')[0]), name }
-        })
-        .filter((goal) => goal !== undefined);
-  
-        const { name, description, website, logo, email, password } = this.startup;
-        const newStartup = { name, description, website, logo, goals, email, password };
-  
-        await apiRequest('post', '/startup', newStartup);
-        this.startupHasBeenAdded = true;
+      try {
+        this.checkFormInputs();
+        this.checkAllInputs();
+        
+        if (this.checkFields.isFieldsCorrect) {
+          const goals = this.startup.goalsList
+          .map(({ checked, name }) => {
+            if (checked) return { id: Number(name.split('')[0]), name }
+          })
+          .filter((goal) => goal !== undefined);
+    
+          const { name, description, website, logo, email, password } = this.startup;
+          const newStartup = { name, description, website, logo, goals, email, password };
+    
+          await apiRequest('post', '/startup', newStartup);
+          this.startupHasBeenAdded = true;
+        } 
+      } catch (error) {
+        console.log(error);
       }
     },
     async updateStartup() {
-      this.checkFormInputs();
-      this.checkAllInputs();
-
-      if (this.checkFields.isFieldsCorrect) {
-        const { name, description, website, logo } = this.startup;
-
-        await apiRequest('put', `/startup${this.startupId}`, { name, description, website, logo });
-        this.startupHasBeenEddited = true;
+      try {
+        this.checkFormInputs();
+        this.checkAllInputs();
+  
+        if (this.checkFields.isFieldsCorrect) {
+          const { name, description, website, logo } = this.startup;
+  
+          await apiRequest('put', `/startup/${this.startupId}`, { name, description, website, logo });
+          this.startupHasBeenEddited = true;
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     async handleSubmit() {
-      console.log('clicou');
-      if (this.mode === 'add') return this.addStartup;
-      return this.updateStartup;
+      if (this.mode === 'add') return this.addStartup();
+      return this.updateStartup();
     },
   },
 }
