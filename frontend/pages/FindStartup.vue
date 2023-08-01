@@ -60,7 +60,7 @@ import Input from '../components/Input.vue';
 import Select from '../components/Select.vue';
 import StartupCard from '../components/StartupCard.vue'
 import goalsList from '../helpers/goalsList';
-import apiRequest from '../services/apiRequest';
+import { apiRequest } from '../services/apiRequest';
 
 export default {
   comments: {
