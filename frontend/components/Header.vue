@@ -91,7 +91,7 @@ export default {
     .header-option {
       display: inline-block;
       text-align: center;
-      padding: 14px;
+      padding: 8px 14px 8px 14px;
       margin-right: 0%;
     }
   }
