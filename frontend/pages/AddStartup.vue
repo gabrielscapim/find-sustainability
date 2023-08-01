@@ -130,11 +130,14 @@ export default {
     Button,
   },
   middleware: 'authMiddleware',
-  created() {
+  async created() {
     const startupId = this.$route.query.id;
     if (startupId) {
       this.mode = 'edit';
       this.startupId = startupId;
+
+      const startupToEdit = await apiRequest('get', `/startup/${startupId}`);
+      console.log(startupToEdit);
     }
   }, 
   data() {

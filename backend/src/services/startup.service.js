@@ -48,7 +48,7 @@ const addStartup = async (startup) => {
 };
 
 const getStartupByEmail = async (email) => {
-  const startup = await startupModel.getStartupByEmail(email);
+  const { password, ...startup } = await startupModel.getStartupByEmail(email);
 
   if (!startup) {
     return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to find startup' } };
@@ -78,7 +78,7 @@ const deleteStartup = async (id) => {
 };
 
 const getStartupById = async (id) => {
-  const startup = await startupModel.getStartupById(id);
+  const { password, ...startup } = await startupModel.getStartupById(id);
 
   if (!startup) {
     return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to find startup' } };
