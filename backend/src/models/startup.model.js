@@ -90,10 +90,20 @@ const getStartupByEmail = async (email) => {
   return startup;
 };
 
+const editStartup = async (startupToUpdate) => {
+  const { id, name, description, website, logo } = startupToUpdate;
+
+  const QUERY = 'UPDATE startups SET name = ?, description = ?, website = ?, logo = ? WHERE id = ?';
+
+  const [startup] = await connection.execute(QUERY, name, description, website, logo, id);
+  
+  return startup;
+};
 module.exports = {
   getAllStartups,
   getStartupsByName,
   getStartupsByGoal,
   addStartup,
   getStartupByEmail,
+  editStartup,
 };

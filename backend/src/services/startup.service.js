@@ -57,10 +57,21 @@ const getStartupByEmail = async (email) => {
   return { status: 'SUCESSFUL', data: startup };
 };
 
+const editStartup = async (startupToUpdate) => {
+  const startup = await startupModel.editStartup(startupToUpdate);
+
+  if (!startup) {
+    return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to update startup' } };
+  }
+  
+  return { status: 'SUCESSFUL', data: startup };
+};
+
 module.exports = {
     getAllStartups,
     getStartupsByName,
     getStartupsByGoal,
     addStartup,
     getStartupByEmail,
+    editStartup,
 };
