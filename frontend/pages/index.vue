@@ -204,5 +204,13 @@ export default {
     .main-section-2-column-2 {
       width: 100%;
     }
+
+    .main-section-1-column-1 h1 {
+      margin-bottom: 20px;
+    }
+
+  .main-buttons-container {
+      width: 95%;
+    }
   }
 </style>
