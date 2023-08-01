@@ -73,6 +73,7 @@ export default {
   }
 
   .form {
+    max-width: 400px;
     min-width: 320px;
     margin: 12px;
     display: flex;
