@@ -20,6 +20,7 @@
       <Input
         id="input-passord-login"
         label="Senha"
+        type="password"
         placeholder="Digite sua senha"
         v-model="email"
       />
