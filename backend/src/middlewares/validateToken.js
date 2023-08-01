@@ -7,8 +7,10 @@ const validateToken = async (req, _res, next) => {
       return next({ statusCode: 401, message: 'Token not found' });
   }
 
+  console.log(authorization);
+
   try {
-    const payload = getPayload(authorization);
+    const payload = getPayload(authorization.split(' ')[1]);
     req.payload = payload;
             
     return next();
