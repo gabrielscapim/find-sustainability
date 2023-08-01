@@ -6,9 +6,6 @@
 
 <template>
   <section class="page-container">
-    <h1 class="page-title">
-      Obrigado por escolher fazer a <span>diferença!</span>
-    </h1>
     <h1 v-if="startupHasBeenAdded">Startup adicionada com sucesso!</h1>
     <h1 v-if="startupHasBeenEddited">Startup editada com sucesso!</h1>
     <form
