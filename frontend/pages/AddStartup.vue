@@ -19,6 +19,21 @@
         v-model="startup.name"
         :isWrong="checkFields.isNameCorrect === false"
       />
+      <Input
+        id="input-statup-email"
+        label="E-mail"
+        placeholder="Digite o e-mail da empresa"
+        v-model="startup.email"
+        :isWrong="checkFields.isEmailCorrect === false"
+      />
+      <Input
+        id="input-statup-password"
+        label="Senha"
+        type="password"
+        placeholder="Digite uma senha para o cadastro"
+        v-model="startup.password"
+        :isWrong="checkFields.isPasswordCorrect === false"
+      />
       <TextArea
         id="input-statup-description"
         type="textarea"
@@ -115,6 +130,8 @@ export default {
       mode: 'add',
       startup: {
         name: '',
+        email: '',
+        password: '',
         description: '',
         goalsList,
         website: '',
@@ -127,6 +144,8 @@ export default {
         isGoalsListCorrect: null,
         isWebsiteCorrect: null,
         isLogoCorrect: null,
+        isEmailCorrect: null,
+        isPasswordCorrect: null,
       },
       startupHasBeenAdded: false,
       startupHasBeenEddited: false,
