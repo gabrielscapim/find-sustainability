@@ -67,6 +67,16 @@ const editStartup = async (startupToUpdate) => {
   return { status: 'SUCESSFUL', data: startup };
 };
 
+const deleteStartup = async (id) => {
+  const response = await startupModel.deleteStartup(id);
+
+  if (!response) {
+    return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to delete startup' } };
+  }
+  
+  return { status: 'SUCESSFUL', data: response };
+};
+
 module.exports = {
     getAllStartups,
     getStartupsByName,
@@ -74,4 +84,5 @@ module.exports = {
     addStartup,
     getStartupByEmail,
     editStartup,
+    deleteStartup,
 };

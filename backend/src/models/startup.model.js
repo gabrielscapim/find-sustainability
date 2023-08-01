@@ -100,6 +100,14 @@ const editStartup = async (startupToUpdate) => {
   return startup;
 };
 
+const deleteStartup = async (id) => {
+  const QUERY = 'DELETE FROM startups WHERE id = ?';
+
+  const response = await connection.execute(QUERY, id);
+  
+  return response;
+};
+
 module.exports = {
   getAllStartups,
   getStartupsByName,
@@ -107,4 +115,5 @@ module.exports = {
   addStartup,
   getStartupByEmail,
   editStartup,
+  deleteStartup,
 };

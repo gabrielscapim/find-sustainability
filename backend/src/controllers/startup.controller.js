@@ -81,10 +81,24 @@ const editStartup = async (req, res) => {
   }
 };
 
+const deleteStartup = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await startupService.deleteStartup(id);
+
+    return res.status.json(204);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(serverErrorMessage);
+  }
+};
+
 module.exports = {
   getAllStartups,
   getStartupsByName,
   getStartupsByGoal,
   addStartup,
   editStartup,
+  deleteStartup,
 };

@@ -3,6 +3,7 @@ const { startupController } = require('../controllers');
 const validateStartupFields = require('../middlewares/validateStartupFields');
 const { validateToken } = require('../middlewares/validateToken');
 
+route.delete('/:id', startupController.deleteStartup);
 route.get('/search/goal', startupController.getStartupsByGoal);
 route.get('/search/name', startupController.getStartupsByName);
 route.get('/', startupController.getAllStartups);
