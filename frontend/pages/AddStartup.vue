@@ -10,7 +10,8 @@
       Obrigado por escolher fazer a <span>diferença!</span>
     </h1>
     <h1 v-if="startupHasBeenAdded">Startup adicionada com sucesso!</h1>
-    <form class="form" v-if="!startupHasBeenAdded">
+    <h1 v-if="startupHasBeenEddited">Startup editada com sucesso!</h1>
+    <form class="form" v-if="!startupHasBeenAdded || !startupHasBeenEddited">
       <Input
         id="input-statup-name"
         label="Nome"
@@ -30,23 +31,25 @@
       >
         {{ 255 - this.startup.description.length }}
       </span>
-      <label class="goals-label">
-        Selecione as ODS que a empresa contribui
-      </label>
-      <Checkbox
-        v-for="goal in startup.goalsList"
-        :key="goal.name"
-        :label="goal.name"
-        :id="goal.name"
-        v-model="goal.checked"
-        :checked="goal.checked"
-      />
-      <span
-        v-if="checkFields.isGoalsListCorrect === false"
-        class="check-fields-warning"
-      >
-        Selecione pelo menos uma ODS
-      </span>
+      <div v-if="mode === 'add'" class="goals-container">
+        <h2 class="goals-label">
+          Selecione as ODS que a empresa contribui
+        </h2>
+        <Checkbox
+          v-for="goal in startup.goalsList"
+          :key="goal.name"
+          :label="goal.name"
+          :id="goal.name"
+          v-model="goal.checked"
+          :checked="goal.checked"
+        />
+        <span
+          v-if="checkFields.isGoalsListCorrect === false"
+          class="check-fields-warning"
+        >
+          Selecione pelo menos uma ODS
+        </span>
+      </div>
       <Input
         id="input-statup-website"
         label="Link para o website"
@@ -78,7 +81,7 @@
         Preencha os campos obrigatórios
       </span>
       <Button
-        label="Adicionar Startup"
+        :label="mode === 'add' ? 'Adicionar Startup' : 'Salvar Alterações'"
         @handleClick="handleSubmit"
       />
     </form>
@@ -100,8 +103,16 @@ export default {
     Checkbox,
     Button,
   },
+  created() {
+    const startupId = this.$route.query.id;
+    if (startupId) {
+      this.mode = 'edit';
+      this.startupId = startupId;
+    }
+  }, 
   data() {
     return {
+      mode: 'add',
       startup: {
         name: '',
         description: '',
@@ -118,6 +129,8 @@ export default {
         isLogoCorrect: null,
       },
       startupHasBeenAdded: false,
+      startupHasBeenEddited: false,
+      startupId: null,
     }
   },
   methods: {
@@ -145,7 +158,7 @@ export default {
       
       return this.checkFields.isFieldsCorrect = false;
     },
-    async handleSubmit() {
+    async addStartup() {
       this.checkFormInputs();
       this.checkAllInputs();
       
@@ -162,7 +175,23 @@ export default {
         await apiRequest('post', '/startup', newStartup);
         this.startupHasBeenAdded = true;
       }
-    }
+    },
+    async updateStartup() {
+      this.checkFormInputs();
+      this.checkAllInputs();
+
+      if (this.checkFields.isFieldsCorrect) {
+        const { name, description, website, logo } = this.startup;
+
+        await apiRequest('put', `/startup${this.startupId}`, { name, description, website, logo });
+        this.startupHasBeenEddited = true;
+      }
+    },
+    async handleSubmit() {
+      console.log('clicou');
+      if (this.mode === 'add') return this.addStartup;
+      return this.updateStartup;
+    },
   },
 }
 </script>
@@ -194,8 +223,14 @@ export default {
     color: #91B31E;
   }
 
+  .goals-container {
+    width: 90%;
+  }
+
   .goals-label {
     width: 90%;
+    font-size: 16px;
+    font-weight: 100;
     margin-top: 24px;
     margin-bottom: 24px;
   }
