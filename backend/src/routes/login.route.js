@@ -1,6 +1,6 @@
 const route = require('express').Router();
-const { startupController } = require('../controllers');
+const { loginController } = require('../controllers');
 
-route.post('/login', startupController.loginAuthentication);
+route.post('/login', loginController.loginAuthentication);
 
 module.exports = route;

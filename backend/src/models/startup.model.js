@@ -99,6 +99,7 @@ const editStartup = async (startupToUpdate) => {
   
   return startup;
 };
+
 module.exports = {
   getAllStartups,
   getStartupsByName,
