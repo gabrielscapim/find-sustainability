@@ -3,7 +3,11 @@
     <section class="main-section-1">
       <article class="main-section-1-column-1">
         <h1>
-          A <span>sustentabilidade</span> está a um clique
+          A <span>sustentabilidade</span> está a um <a 
+            href="/find-startup"
+          >
+            clique
+          </a>
         </h1>
         <p>
           Explore nossa plataforma e descubra startups comprometidas em construir um futuro melhor para todos. Cada projeto é um elo valioso na preservação do nosso planeta.
@@ -95,6 +99,10 @@ export default {
     text-align: center;
   }
 
+  .main-section-1-column-1 a {
+    color: black;
+    text-decoration: none;
+  }
 
   .main-section-1-column-1 h1 {
     font-size: 32px;
