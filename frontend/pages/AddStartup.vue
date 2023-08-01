@@ -20,6 +20,7 @@
         :isWrong="checkFields.isNameCorrect === false"
       />
       <Input
+        v-if="mode === 'add'"
         id="input-statup-email"
         label="E-mail"
         placeholder="Digite o e-mail da empresa"
@@ -27,6 +28,7 @@
         :isWrong="checkFields.isEmailCorrect === false"
       />
       <Input
+        v-if="mode === 'add'"
         id="input-statup-password"
         label="Senha"
         type="password"
