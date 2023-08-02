@@ -84,6 +84,7 @@ export default {
     height: 90vh;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 
   .page-container h1 {
@@ -104,6 +105,7 @@ export default {
     border: 1px solid #e6e5e1;
     border-radius: 12px;
     padding: 32px;
+    max-height: 300px;
     height: 300px;
     justify-content: center;
     margin-top: 20px;
