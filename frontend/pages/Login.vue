@@ -24,13 +24,13 @@
         placeholder="Digite sua senha"
         v-model="password"
       />
+      <LoadingSpinner v-if="loading" />
       <span v-if="loginFailed">E-mail ou senha incorretos</span>
       <Button
         :disabled="loading"
         label="Entrar"
         @handleClick="handleSubmit"
       />
-      <LoadingSpinner v-if="loading" />
       <a href="/add-startup">Não tenho cadastro</a>
     </form>
   </section>
