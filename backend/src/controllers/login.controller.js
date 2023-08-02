@@ -10,12 +10,12 @@ const loginAuthentication = async (req, res) => {
       return res.status(400).json({ message: 'Invalid fields' });
     }
   
-    const { password: _password, ...userWithoutPassword } = startup.data;
+    const { password: _password, ...startupWithoutPassword } = startup.data;
   
-    const payload = { data: userWithoutPassword };
+    const payload = { data: startupWithoutPassword };
     const token = createToken(payload);
   
-    return res.status(200).json({ token });
+    return res.status(200).json({ token, startup: startupWithoutPassword });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Erro interno' });

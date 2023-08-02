@@ -48,7 +48,7 @@ const addStartup = async (startup) => {
 };
 
 const getStartupByEmail = async (email) => {
-  const { password, ...startup } = await startupModel.getStartupByEmail(email);
+  const startup = await startupModel.getStartupByEmail(email);
 
   if (!startup) {
     return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to find startup' } };
