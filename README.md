@@ -8,8 +8,7 @@ Neste projeto, foi criada uma plataforma chamada de <b>Find Sustainability</b>. 
 
 O Front-end da aplicação é conectado ao Back-end que contém uma API Rest. A API, por sua vez, é conectada com um banco de dados conforme a figura a abaixo.
 
-![Captura de tela de 2023-08-02 16-47-29](https://github.com/gabrielscapim/sling-hub-challenge/assets/117940631/c7a023c2-246d-4ebb-83c7-c098e1ba6a4b)
-
+<img src="https://user-images.githubusercontent.com/117940631/257938160-b2b7793c-64ca-473b-9183-77c05a09ae78.png" />
 
 Com isso, a aplicação contém as seguintes funcionalidades:
 
