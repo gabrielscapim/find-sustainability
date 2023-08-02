@@ -8,7 +8,6 @@
 <template>
   <main class="page-container">
     <section class="filters-container">
-      <LoadingSpinner v-if="loading" />
       <div class="filter-container">
         <Input 
           id="input-find-startup-by-name"
@@ -23,6 +22,11 @@
         />
       </div>
       <span v-if="filter.isNameFilterEnabled" class="filter-advice">Filtro por nome aplicado</span>
+      <Button
+          v-if="filter.isNameFilterEnabled"
+          label="Remover filtro"
+          @handleClick="handleDeleteFilter"
+        />
       <div class="filter-container">
         <Select
           id="input-find-startup-by-ods"
@@ -37,7 +41,13 @@
         />
       </div>
       <span v-if="filter.isGoalFilterEnabled" class="filter-advice">Filtro por ODS aplicado</span>
+        <Button
+          v-if="filter.isGoalFilterEnabled"
+          label="Remover filtro"
+          @handleClick="handleDeleteFilter"
+        />
     </section>
+    <LoadingSpinner v-if="loading" />
     <section class="startups-container">
       <StartupCard 
         v-for="(startup, index) in startups"
@@ -48,7 +58,13 @@
         :website="startup.website"
       />
       <span
-        v-if="startups.length === 0"
+        v-if="requestFailed"
+        class="request-failed"
+      >
+        Ocorreu um erro, tente novamente.
+      </span>
+      <span
+        v-if="startups.length === 0 && requestFailed !== true"
         class="result-advice"
       >
         Nenhum resultado foi encontrado, tente novamente.
@@ -76,28 +92,52 @@ export default {
   },
   methods: {
     async handleFindStartupByName() {
-      this.loading = true;
-      const data = await apiRequest('get', `/startup/search/name?q=${this.filter.startupName}`);
-
-      this.filter.isGoalFilterEnabled = false;
-      this.filter.isNameFilterEnabled = true;
-      this.loading = false;
-      this.startups = data;
+      try {
+        this.loading = true;
+        const data = await apiRequest('get', `/startup/search/name?q=${this.filter.startupName}`);
+  
+        this.filter.isGoalFilterEnabled = false;
+        this.filter.isNameFilterEnabled = true;
+        this.loading = false;
+        this.startups = data;
+      } catch (error) {
+        console.log(error);
+        this.loading = false;
+        this.requestFailed = true;
+      }
     },
     async handleFindStartupByOds() {
-      const goal = this.filter.goal.split('')[0];
-      this.loading = true;
-      const data = await apiRequest('get', `/startup/search/goal?id=${goal}`);
-
-      this.filter.isGoalFilterEnabled = true;
-      this.filter.isNameFilterEnabled = false;
-      this.loading = false;
-      this.startups = data;
+      try {
+        const goal = this.filter.goal.split('')[0];
+        this.loading = true;
+        const data = await apiRequest('get', `/startup/search/goal?id=${goal}`);
+  
+        this.filter.isGoalFilterEnabled = true;
+        this.filter.isNameFilterEnabled = false;
+        this.loading = false;
+        this.startups = data;     
+      } catch (error) {
+        console.log(error);
+        this.loading = false;
+        this.requestFailed = true;
+      }
     },
     async getStartupsNoFilter() {
-      const data = await apiRequest('get', '/startup');
-      this.loading = false;
-      this.startups = data;
+      try {
+        this.loading = true;
+        const data = await apiRequest('get', '/startup');
+        this.loading = false;
+        this.startups = data;
+      } catch (error) {
+        console.log(error);
+        this.loading = false;
+        this.requestFailed = true;
+      }
+    },
+    async handleDeleteFilter() {
+      this.filter.isGoalFilterEnabled = false;
+      this.filter.isNameFilterEnabled = false;
+      await this.getStartupsNoFilter();
     }
   },
   async created() {
@@ -114,12 +154,20 @@ export default {
         goal: '1. Erradicação da Pobreza',
       },
       loading: true,
+      requestFailed: false,
     }
   }
 }
 </script>
 
 <style>
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .input-container {
     margin: 0px;
   }
@@ -137,6 +185,7 @@ export default {
   }
 
   .filters-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -184,9 +233,18 @@ export default {
   }
 
   .result-advice {
+    width: 95%;
+    margin: 0px;
     color: grey;
     font-size: 16px;
     text-align: center;
+  }
+
+  .request-failed {
+    margin: 12px 0px 24px 0px;
+    color: red;
+    text-align: center;
+    width: 90%;
   }
 
   @media all and (max-width: 768px) {
@@ -206,6 +264,10 @@ export default {
 
     .button {
       margin-top: 16px;
+    }
+
+    .filter-advice {
+      margin-bottom: 0px;
     }
   }
 </style>

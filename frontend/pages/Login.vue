@@ -24,13 +24,19 @@
         placeholder="Digite sua senha"
         v-model="password"
       />
+      <LoadingSpinner v-if="loading" />
+      <span
+        v-if="requestFailed"
+        class="request-failed"
+      >
+        Ocorreu um erro, tente novamente.
+      </span>
       <span v-if="loginFailed">E-mail ou senha incorretos</span>
       <Button
         :disabled="loading"
         label="Entrar"
         @handleClick="handleSubmit"
       />
-      <LoadingSpinner v-if="loading" />
       <a href="/add-startup">Não tenho cadastro</a>
     </form>
   </section>
@@ -62,6 +68,7 @@ export default {
         this.loading = false;
         return this.loginFailed = true;
       } catch (error) {
+        this.requestFailed = true;
         console.log(error);
       }
     }
@@ -73,6 +80,7 @@ export default {
       password: '',
       loginFailed: false,
       loading: false,
+      requestFailed: false,
     }
   },
 }
@@ -84,6 +92,7 @@ export default {
     height: 90vh;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 
   .page-container h1 {
@@ -104,6 +113,7 @@ export default {
     border: 1px solid #e6e5e1;
     border-radius: 12px;
     padding: 32px;
+    max-height: 300px;
     height: 300px;
     justify-content: center;
     margin-top: 20px;
