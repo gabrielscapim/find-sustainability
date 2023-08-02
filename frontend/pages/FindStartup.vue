@@ -64,7 +64,7 @@
         Ocorreu um erro, tente novamente.
       </span>
       <span
-        v-if="startups.length === 0 && requestFailed !== true"
+        v-if="startups.length === 0 && requestFailed !== true && !loading"
         class="result-advice"
       >
         Nenhum resultado foi encontrado, tente novamente.
