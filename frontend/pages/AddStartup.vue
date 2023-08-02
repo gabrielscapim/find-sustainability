@@ -115,6 +115,12 @@
       >
         Startup já cadastrada
       </span>
+      <span
+        v-if="requestFailed"
+        class="check-fields-warning"
+      >
+        Ocorreu um erro, tente novamente.
+      </span>
       <div class="buttons-container">
         <Button
           :disabled="loading"
@@ -180,6 +186,7 @@ export default {
         logo: '',
       },
       loading: false,
+      requestFailed: false,
       checkFields: {
         isFieldsCorrect: null,
         isNameCorrect: null,
@@ -244,11 +251,12 @@ export default {
         } 
       } catch (error) {
         const startupAlreadyExistsMessage = "Startup already exist";
-        const { data: { message } } = error.response
-        this.loading = true;
-        if (message === startupAlreadyExistsMessage) {
-          this.loading = false;
+        this.loading = false;
+
+        if (error.response && error.response.data.message === startupAlreadyExistsMessage) {
           this.checkFields.startupAlreadyExists = true;
+        } else {
+          this.requestFailed = true;
         }
         console.log(error);
       }
@@ -270,12 +278,11 @@ export default {
           this.loading = false;
         }
       } catch (error) {
-        this.loading = true;
+        this.requestFailed = true;
         console.log(error);
       }
     },
     async handleSubmit() {
-      console.log('clicou');
       if (this.mode === 'add') return this.addStartup();
       return this.updateStartup();
     },
