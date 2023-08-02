@@ -2,7 +2,8 @@
   <button
     type="button"
     @click="$emit('handleClick')"
-    class="button"
+    :class="disabled ? 'button button-disabled' : 'button'"
+    :disabled="disabled"
   >
     {{ label }}
   </button>
@@ -16,6 +17,10 @@ export default {
       type: String,
       required: true
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    }
   }
 }
 </script>
@@ -33,10 +38,22 @@ export default {
     max-height: 48px;
   }
 
+  .button-disabled {
+    border: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+  }
+
   .button:hover {
     background-color: #1A614F;
     border: 1px solid #1A614F;
     cursor: pointer;
+  }
+
+  .button-disabled:hover {
+    border: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
   }
 
   @media all and (max-width: 1024px) {
