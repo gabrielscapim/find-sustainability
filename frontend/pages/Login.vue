@@ -22,8 +22,9 @@
         label="Senha"
         type="password"
         placeholder="Digite sua senha"
-        v-model="email"
+        v-model="password"
       />
+      <span v-if="loginFailed">E-mail ou senha incorretos</span>
       <Button 
         label="Entrar"
         @handleClick="handleSubmit"
@@ -36,6 +37,7 @@
 <script>
 import Button from '../components/Button.vue';
 import Input from '../components/Input.vue'
+import { loginRequest } from '../services/apiRequest';
 
 export default {
   components: {
@@ -43,20 +45,31 @@ export default {
     Button,
   },
   methods: {
-    handleSubmit() {
-      console.log('clicou');
+    async handleSubmit() {
+      try {
+        const startup = await loginRequest(this.email, this.password);
+
+        if (startup) {
+          return this.$router.push(`/add-startup?id=${startup.id}`);
+        }
+
+        return this.loginFailed = true;
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   data() {
     return {
       email: '',
       password: '',
+      loginFailed: false,
     }
-  }
+  },
 }
 </script>
 
-<style>
+<style scoped>
   .page-container {
     display: flex;
     height: 90vh;
@@ -85,6 +98,12 @@ export default {
     height: 300px;
     justify-content: center;
     margin-top: 20px;
+  }
+
+  .form span {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: red;
   }
 
   .button {
