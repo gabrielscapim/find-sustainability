@@ -8,7 +8,6 @@
 <template>
   <main class="page-container">
     <section class="filters-container">
-      <LoadingSpinner v-if="loading" />
       <div class="filter-container">
         <Input 
           id="input-find-startup-by-name"
@@ -38,6 +37,7 @@
       </div>
       <span v-if="filter.isGoalFilterEnabled" class="filter-advice">Filtro por ODS aplicado</span>
     </section>
+    <LoadingSpinner />
     <section class="startups-container">
       <StartupCard 
         v-for="(startup, index) in startups"
