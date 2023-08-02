@@ -25,10 +25,12 @@
         v-model="password"
       />
       <span v-if="loginFailed">E-mail ou senha incorretos</span>
-      <Button 
+      <Button
+        :disabled="loading"
         label="Entrar"
         @handleClick="handleSubmit"
       />
+      <LoadingSpinner v-if="loading" />
       <a href="/add-startup">Não tenho cadastro</a>
     </form>
   </section>
@@ -38,21 +40,26 @@
 import Button from '../components/Button.vue';
 import Input from '../components/Input.vue'
 import { loginRequest } from '../services/apiRequest';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default {
   components: {
     Input,
     Button,
+    LoadingSpinner,
   },
   methods: {
     async handleSubmit() {
       try {
+        this.loading = true;
         const startup = await loginRequest(this.email, this.password);
-        console.log(startup);
+
         if (startup) {
+          this.loading = false;
           return this.$router.push(`/add-startup?id=${startup.id}`);
         }
 
+        this.loading = false;
         return this.loginFailed = true;
       } catch (error) {
         console.log(error);
@@ -65,6 +72,7 @@ export default {
       email: '',
       password: '',
       loginFailed: false,
+      loading: false,
     }
   },
 }
