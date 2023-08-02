@@ -6,7 +6,10 @@ const errorHandler = require('./middlewares/errorHandler');
 const app = express();
 
 app.use(cors({
-    origin: '*',
+    origin: ['https://find-sustainability.vercel.app',
+    'https://find-sustainability.vercel.app/login',
+    'https://find-sustainability.vercel.app/find-startup',
+    'https://find-sustainability.vercel.app/add-startup'],
 }));
 app.use(express.json());
 app.use('/startup', startupRoutes);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = process.env.API_URL;
+const URL = 'https://api-sling-hub-challenge.vercel.app';
 const HTTP_STATUS_OK = 200;
 
 const loginRequest = async (email, password) => {
