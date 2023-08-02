@@ -65,7 +65,7 @@ import goalsList from '../helpers/goalsList';
 import { apiRequest } from '../services/apiRequest';
 
 export default {
-  comments: {
+  components: {
     StartupCard,
     Input,
     Button,
