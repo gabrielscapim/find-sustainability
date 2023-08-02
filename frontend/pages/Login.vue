@@ -48,7 +48,7 @@ export default {
     async handleSubmit() {
       try {
         const startup = await loginRequest(this.email, this.password);
-
+        console.log(startup);
         if (startup) {
           return this.$router.push(`/add-startup?id=${startup.id}`);
         }
@@ -59,6 +59,7 @@ export default {
       }
     }
   },
+  middleware: 'authMiddleware',
   data() {
     return {
       email: '',
