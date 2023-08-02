@@ -25,7 +25,7 @@
       <Button
           v-if="filter.isNameFilterEnabled"
           label="Remover filtro"
-          @handleClick="handleDeleteilter"
+          @handleClick="handleDeleteFilter"
         />
       <div class="filter-container">
         <Select
@@ -136,6 +136,13 @@ export default {
 </script>
 
 <style>
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .input-container {
     margin: 0px;
   }
@@ -153,6 +160,7 @@ export default {
   }
 
   .filters-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -200,6 +208,8 @@ export default {
   }
 
   .result-advice {
+    width: 95%;
+    margin: 0px;
     color: grey;
     font-size: 16px;
     text-align: center;
@@ -222,6 +232,10 @@ export default {
 
     .button {
       margin-top: 16px;
+    }
+
+    .filter-advice {
+      margin-bottom: 0px;
     }
   }
 </style>
