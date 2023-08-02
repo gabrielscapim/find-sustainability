@@ -18,6 +18,7 @@
     border-top: 5px solid #91B31E;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+    margin-bottom: 16px;
   }
 
   @keyframes spin {
