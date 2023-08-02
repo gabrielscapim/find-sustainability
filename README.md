@@ -2,7 +2,7 @@
 
 Aplicação desenvolvida para avaliação do candidato no processo seletivo da empresa Sling Hub.
 
-Neste projeto, foi criada uma empresa fictícia chamada de <b>Find Sustainability</b>. Esta empresa tem como objetivo em conectar o usuário a startups que estão alinhadas com algum dos <a href="https://brasil.un.org/pt-br/sdgs" target="_blank">17 Objetivos de Desenvolvimento sustentável da ONU</a>.
+Neste projeto, foi criada uma plataforma chamada de <b>Find Sustainability</b>. Esta plataforma tem como objetivo conectar o usuário a startups que estão alinhadas com algum dos <a href="https://brasil.un.org/pt-br/sdgs" target="_blank">17 Objetivos de Desenvolvimento sustentável da ONU</a>.
 
 ## ⚙️ Funcionalidades
 
