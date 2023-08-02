@@ -58,7 +58,13 @@
         :website="startup.website"
       />
       <span
-        v-if="startups.length === 0"
+        v-if="requestFailed"
+        class="request-failed"
+      >
+        Ocorreu um erro, tente novamente.
+      </span>
+      <span
+        v-if="startups.length === 0 && requestFailed !== true"
         class="result-advice"
       >
         Nenhum resultado foi encontrado, tente novamente.
@@ -86,29 +92,47 @@ export default {
   },
   methods: {
     async handleFindStartupByName() {
-      this.loading = true;
-      const data = await apiRequest('get', `/startup/search/name?q=${this.filter.startupName}`);
-
-      this.filter.isGoalFilterEnabled = false;
-      this.filter.isNameFilterEnabled = true;
-      this.loading = false;
-      this.startups = data;
+      try {
+        this.loading = true;
+        const data = await apiRequest('get', `/startup/search/name?q=${this.filter.startupName}`);
+  
+        this.filter.isGoalFilterEnabled = false;
+        this.filter.isNameFilterEnabled = true;
+        this.loading = false;
+        this.startups = data;
+      } catch (error) {
+        console.log(error);
+        this.loading = false;
+        this.requestFailed = true;
+      }
     },
     async handleFindStartupByOds() {
-      const goal = this.filter.goal.split('')[0];
-      this.loading = true;
-      const data = await apiRequest('get', `/startup/search/goal?id=${goal}`);
-
-      this.filter.isGoalFilterEnabled = true;
-      this.filter.isNameFilterEnabled = false;
-      this.loading = false;
-      this.startups = data;
+      try {
+        const goal = this.filter.goal.split('')[0];
+        this.loading = true;
+        const data = await apiRequest('get', `/startup/search/goal?id=${goal}`);
+  
+        this.filter.isGoalFilterEnabled = true;
+        this.filter.isNameFilterEnabled = false;
+        this.loading = false;
+        this.startups = data;     
+      } catch (error) {
+        console.log(error);
+        this.loading = false;
+        this.requestFailed = true;
+      }
     },
     async getStartupsNoFilter() {
-      this.loading = true;
-      const data = await apiRequest('get', '/startup');
-      this.loading = false;
-      this.startups = data;
+      try {
+        this.loading = true;
+        const data = await apiRequest('get', '/startup');
+        this.loading = false;
+        this.startups = data;
+      } catch (error) {
+        console.log(error);
+        this.loading = false;
+        this.requestFailed = true;
+      }
     },
     async handleDeleteFilter() {
       this.filter.isGoalFilterEnabled = false;
@@ -130,6 +154,7 @@ export default {
         goal: '1. Erradicação da Pobreza',
       },
       loading: true,
+      requestFailed: false,
     }
   }
 }
@@ -213,6 +238,13 @@ export default {
     color: grey;
     font-size: 16px;
     text-align: center;
+  }
+
+  .request-failed {
+    margin: 12px 0px 24px 0px;
+    color: red;
+    text-align: center;
+    width: 90%;
   }
 
   @media all and (max-width: 768px) {
