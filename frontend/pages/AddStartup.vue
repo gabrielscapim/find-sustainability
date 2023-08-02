@@ -132,26 +132,18 @@ export default {
     Checkbox,
     Button,
   },
-  middleware: 'authMiddleware',
+  middleware: 'addStartupMiddleware',
   async created() {
     const startupId = this.$route.query.id;
+
     if (startupId) {
       try {
-        const startupEmail = localStorage.getItem('startup_email');
         const startupToEdit = await apiRequest('get', `/startup/${startupId}`);
 
         this.mode = 'edit';
-        this.startupId = startupId;
-  
-        if (startupEmail !== startupToEdit.email) {
-          localStorage.removeItem('token');
-          localStorage.removeItem('startup_id');
-          this.$router.push('/login');
-          return null;
-        }
-
         this.startup = startupToEdit;
       } catch (error) {
+        this.$router.push('/login');
         console.log(error);
       }
     }
