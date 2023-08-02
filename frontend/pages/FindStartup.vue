@@ -22,6 +22,11 @@
         />
       </div>
       <span v-if="filter.isNameFilterEnabled" class="filter-advice">Filtro por nome aplicado</span>
+      <Button
+          v-if="filter.isNameFilterEnabled"
+          label="Remover filtro"
+          @handleClick="handleDeleteilter"
+        />
       <div class="filter-container">
         <Select
           id="input-find-startup-by-ods"
@@ -36,8 +41,13 @@
         />
       </div>
       <span v-if="filter.isGoalFilterEnabled" class="filter-advice">Filtro por ODS aplicado</span>
+        <Button
+          v-if="filter.isGoalFilterEnabled"
+          label="Remover filtro"
+          @handleClick="handleDeleteFilter"
+        />
     </section>
-    <LoadingSpinner />
+    <LoadingSpinner v-if="loading" />
     <section class="startups-container">
       <StartupCard 
         v-for="(startup, index) in startups"
@@ -95,9 +105,15 @@ export default {
       this.startups = data;
     },
     async getStartupsNoFilter() {
+      this.loading = true;
       const data = await apiRequest('get', '/startup');
       this.loading = false;
       this.startups = data;
+    },
+    async handleDeleteFilter() {
+      this.filter.isGoalFilterEnabled = false;
+      this.filter.isNameFilterEnabled = false;
+      await this.getStartupsNoFilter();
     }
   },
   async created() {
