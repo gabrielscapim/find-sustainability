@@ -111,15 +111,18 @@
       </span>
       <div class="buttons-container">
         <Button
+          :disabled="loading"
           v-if="mode === 'edit'"
           label="Sair da conta"
           @handleClick="logout"
         />
         <Button
+          :disabled="loading"
           :label="mode === 'add' ? 'Adicionar Startup' : 'Salvar Alterações'"
           @handleClick="handleSubmit"
         />
       </div>
+      <LoadingSpinner v-if="loading" />
     </form>
   </section>
 </template>
@@ -129,6 +132,7 @@ import Button from '../components/Button.vue';
 import Checkbox from '../components/Checkbox.vue';
 import Input from '../components/Input.vue'
 import TextArea from '../components/TextArea.vue'
+import LoadingSpinner from '../components/LoadingSpinner';
 import goalsList from '../helpers/goalsList';
 import { apiRequest } from '../services/apiRequest';
 import resetLocalStorage from '../helpers/resetLocalStorage';
@@ -139,6 +143,7 @@ export default {
     TextArea,
     Checkbox,
     Button,
+    LoadingSpinner,
   },
   middleware: 'addStartupMiddleware',
   async created() {
@@ -168,6 +173,7 @@ export default {
         website: '',
         logo: '',
       },
+      loading: false,
       checkFields: {
         isFieldsCorrect: null,
         isNameCorrect: null,
@@ -215,6 +221,7 @@ export default {
         this.checkAllInputs();
         
         if (this.checkFields.isFieldsCorrect) {
+          this.loading = true;
           const goals = this.startup.goalsList
           .map(({ checked, name }) => {
             if (checked) return { id: Number(name.split('')[0]), name }
@@ -223,11 +230,13 @@ export default {
     
           const { name, description, website, logo, email, password } = this.startup;
           const newStartup = { name, description, website, logo, goals, email, password };
-    
+
           await apiRequest('post', '/startup', newStartup);
           this.startupHasBeenAdded = true;
+          this.loading = false;
         } 
       } catch (error) {
+        this.loading = true;
         console.log(error);
       }
     },
@@ -240,17 +249,20 @@ export default {
         if (!isInputsCorrect) return this.checkFields.isFieldsCorrect = false;
 
         if (isInputsCorrect) {
+          this.loading = true;
           const { email, id, ...startupToUpdate } = this.startup;
   
-          const response = await apiRequest('put', `/startup/${id}`, startupToUpdate);
+          await apiRequest('put', `/startup/${id}`, startupToUpdate);
           this.startupHasBeenEddited = true;
-          console.log(response);
+          this.loading = false;
         }
       } catch (error) {
+        this.loading = true;
         console.log(error);
       }
     },
     async handleSubmit() {
+      console.log('clicou');
       if (this.mode === 'add') return this.addStartup();
       return this.updateStartup();
     },
