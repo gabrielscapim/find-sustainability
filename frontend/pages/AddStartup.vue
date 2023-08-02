@@ -109,10 +109,17 @@
       >
         Preencha os campos obrigatórios
       </span>
-      <Button
-        :label="mode === 'add' ? 'Adicionar Startup' : 'Salvar Alterações'"
-        @handleClick="handleSubmit"
-      />
+      <div class="buttons-container">
+        <Button
+          v-if="mode === 'edit'"
+          label="Sair da conta"
+          @handleClick="logout"
+        />
+        <Button
+          :label="mode === 'add' ? 'Adicionar Startup' : 'Salvar Alterações'"
+          @handleClick="handleSubmit"
+        />
+      </div>
     </form>
   </section>
 </template>
@@ -124,6 +131,7 @@ import Input from '../components/Input.vue'
 import TextArea from '../components/TextArea.vue'
 import goalsList from '../helpers/goalsList';
 import { apiRequest } from '../services/apiRequest';
+import resetLocalStorage from '../helpers/resetLocalStorage';
 
 export default {
   components: {
@@ -246,6 +254,10 @@ export default {
       if (this.mode === 'add') return this.addStartup();
       return this.updateStartup();
     },
+    async logout() {
+      this.$router.push('login');
+      resetLocalStorage();
+    }
   },
 }
 </script>
@@ -307,6 +319,12 @@ export default {
     font-size: 12px;
     width: 90%;
     margin-bottom: 12px;
+  }
+
+  .buttons-container {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
   }
 
   @media all and (max-width: 768px) {
