@@ -109,6 +109,12 @@
       >
         Preencha os campos obrigatórios
       </span>
+      <span
+        v-if="checkFields.startupAlreadyExists"
+        class="check-fields-warning"
+      >
+        Startup já cadastrada
+      </span>
       <div class="buttons-container">
         <Button
           :disabled="loading"
@@ -183,6 +189,7 @@ export default {
         isLogoCorrect: null,
         isEmailCorrect: null,
         isPasswordCorrect: null,
+        startupAlreadyExists: false,
       },
       startupHasBeenAdded: false,
       startupHasBeenEddited: false,
@@ -236,7 +243,13 @@ export default {
           this.loading = false;
         } 
       } catch (error) {
+        const startupAlreadyExistsMessage = "Startup already exist";
+        const { data: { message } } = error.response
         this.loading = true;
+        if (message === startupAlreadyExistsMessage) {
+          this.loading = false;
+          this.checkFields.startupAlreadyExists = true;
+        }
         console.log(error);
       }
     },
