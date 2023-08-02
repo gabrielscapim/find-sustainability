@@ -3,10 +3,10 @@ import axios from 'axios';
 const URL = 'http://localhost:3003';
 const HTTP_STATUS_OK = 200;
 
-const loginRequest = async (login, password) => {
+const loginRequest = async (email, password) => {
   try {
     const response = await axios.post(`${URL}/login`, {
-      login,
+      email,
       password,
     });
 
@@ -15,11 +15,12 @@ const loginRequest = async (login, password) => {
     if (status === HTTP_STATUS_OK) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('tokenGenerationTime', Date.now());
+      localStorage.setItem('startup', JSON.stringify(data.startup));
 
-      return true;
+      return data.startup;
     }
 
-    return false;
+    return null;
   } catch (error) {
     return false;
   }
