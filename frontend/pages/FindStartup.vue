@@ -8,6 +8,7 @@
 <template>
   <main class="page-container">
     <section class="filters-container">
+      <LoadingSpinner v-if="loading" />
       <div class="filter-container">
         <Input 
           id="input-find-startup-by-name"
@@ -59,6 +60,7 @@ import Button from '../components/Button.vue';
 import Input from '../components/Input.vue';
 import Select from '../components/Select.vue';
 import StartupCard from '../components/StartupCard.vue'
+import LoadingSpinner from '../components/LoadingSpinner';
 import goalsList from '../helpers/goalsList';
 import { apiRequest } from '../services/apiRequest';
 
@@ -68,25 +70,31 @@ export default {
     Input,
     Button,
     Select,
+    LoadingSpinner,
   },
   methods: {
     async handleFindStartupByName() {
+      this.loading = true;
       const data = await apiRequest('get', `/startup/search/name?q=${this.filter.startupName}`);
 
       this.filter.isGoalFilterEnabled = false;
       this.filter.isNameFilterEnabled = true;
+      this.loading = false;
       this.startups = data;
     },
     async handleFindStartupByOds() {
       const goal = this.filter.goal.split('')[0];
+      this.loading = true;
       const data = await apiRequest('get', `/startup/search/goal?id=${goal}`);
 
       this.filter.isGoalFilterEnabled = true;
       this.filter.isNameFilterEnabled = false;
+      this.loading = false;
       this.startups = data;
     },
     async getStartupsNoFilter() {
       const data = await apiRequest('get', '/startup');
+      this.loading = false;
       this.startups = data;
     }
   },
@@ -103,6 +111,7 @@ export default {
         startupName: '',
         goal: '1. Erradicação da Pobreza',
       },
+      loading: true,
     }
   }
 }
