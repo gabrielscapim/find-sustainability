@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:3003';
+const URL = process.env.API_URL;
 const HTTP_STATUS_OK = 200;
 
 const loginRequest = async (email, password) => {
