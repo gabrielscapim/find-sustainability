@@ -25,6 +25,12 @@
         v-model="password"
       />
       <LoadingSpinner v-if="loading" />
+      <span
+        v-if="requestFailed"
+        class="request-failed"
+      >
+        Ocorreu um erro, tente novamente.
+      </span>
       <span v-if="loginFailed">E-mail ou senha incorretos</span>
       <Button
         :disabled="loading"
@@ -62,6 +68,7 @@ export default {
         this.loading = false;
         return this.loginFailed = true;
       } catch (error) {
+        this.requestFailed = true;
         console.log(error);
       }
     }
@@ -73,6 +80,7 @@ export default {
       password: '',
       loginFailed: false,
       loading: false,
+      requestFailed: false,
     }
   },
 }
