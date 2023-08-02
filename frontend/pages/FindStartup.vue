@@ -16,7 +16,8 @@
           placeholder="Digite o nome da startup que deseja procurar"
           v-model="filter.startupName"
         />
-        <Button 
+        <Button
+          :disabled="loading"
           label="Buscar"
           @handleClick="handleFindStartupByName"
         />
@@ -29,7 +30,8 @@
           :options="goals"
           v-model="filter.goal"
         />
-        <Button 
+        <Button
+          :disabled="loading"
           label="Buscar"
           @handleClick="handleFindStartupByOds"
         />
