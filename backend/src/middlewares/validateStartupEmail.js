@@ -1,9 +1,9 @@
 const { getStartupByEmail } = require('../models/startup.model');
 
-const validateStartupEmail = (req, _res, next) => {
+const validateStartupEmail = async (req, _res, next) => {
   const { email } = req.body;
-  const startup = getStartupByEmail(email);
-
+  const startup = await getStartupByEmail(email);
+  console.log(startup);
   if (startup) {
     return next({ statusCode: 400, message: 'Startup already exist' });
   }

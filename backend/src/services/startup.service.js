@@ -77,6 +77,16 @@ const deleteStartup = async (id) => {
   return { status: 'SUCESSFUL', data: response };
 };
 
+const getStartupById = async (id) => {
+  const { password, ...startup } = await startupModel.getStartupById(id);
+
+  if (!startup) {
+    return { status: 'UNSUCCESSFULLY', data: { message: 'Unable to find startup' } };
+  }
+  
+  return { status: 'SUCESSFUL', data: startup };
+};
+
 module.exports = {
     getAllStartups,
     getStartupsByName,
@@ -85,4 +95,5 @@ module.exports = {
     getStartupByEmail,
     editStartup,
     deleteStartup,
+    getStartupById,
 };
