@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const URL = 'https://api-sling-hub-challenge.vercel.app';
+// const URL = 'https://api-sling-hub-challenge.vercel.app';
+const URL = 'http://localhost:3003';
 const HTTP_STATUS_OK = 200;
 
 const loginRequest = async (email, password) => {
@@ -37,7 +38,6 @@ const apiRequest = async (method, endpoint, data = null) => {
     };
 
     let response;
-    console.log(config);
 
     switch (method.toLowerCase()) {
     case 'get':
