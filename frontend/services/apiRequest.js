@@ -37,7 +37,6 @@ const apiRequest = async (method, endpoint, data = null) => {
     };
 
     let response;
-    console.log(config);
 
     switch (method.toLowerCase()) {
     case 'get':

@@ -121,6 +121,11 @@
       >
         Ocorreu um erro, tente novamente.
       </span>
+      <Button
+        :disabled="loading"
+        :label="mode === 'add' ? 'Adicionar Startup' : 'Salvar Alterações'"
+        @handleClick="handleSubmit"
+      />
       <div class="buttons-container">
         <Button
           :disabled="loading"
@@ -130,8 +135,9 @@
         />
         <Button
           :disabled="loading"
-          :label="mode === 'add' ? 'Adicionar Startup' : 'Salvar Alterações'"
-          @handleClick="handleSubmit"
+          v-if="mode === 'edit'"
+          label="Excluir conta"
+          @handleClick="handleDeleteStartup"
         />
       </div>
       <LoadingSpinner v-if="loading" />
@@ -261,6 +267,18 @@ export default {
         console.log(error);
       }
     },
+    async deleteStartup() {
+      try {
+        this.loading = true;
+        await apiRequest('delete', `/startup/${this.startup.id}`);
+        this.loading = false;
+        this.$router.push('login');
+        resetLocalStorage();
+      } catch (error) {
+        this.requestFailed = true;
+        console.log(error);
+      }
+    },
     async updateStartup() {
       try {
         const isInputsCorrect = Object.values(this.startup).every((input) => (
@@ -289,7 +307,10 @@ export default {
     async logout() {
       this.$router.push('login');
       resetLocalStorage();
-    }
+    },
+    async handleDeleteStartup() {
+      await this.deleteStartup();
+    },
   },
 }
 </script>
@@ -334,8 +355,8 @@ export default {
   }
 
   .page-container button {
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: 12px;
+    margin-bottom: 12px;
   }
 
   .check-fields-warning {

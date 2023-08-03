@@ -15,6 +15,8 @@ export default async ({ route, redirect }) => {
       }
     } catch (error) {
       console.log(error);
+      resetLocalStorage();
+      redirect('login');
     }
   }
 }
